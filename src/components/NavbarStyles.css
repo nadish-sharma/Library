@@ -47,10 +47,12 @@
     z-index: 9999;
 }
 .container {
+    position: relative;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 200px;
+    top: 8em;
     width: 65%;
     height: 20px;
     /* box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25); */

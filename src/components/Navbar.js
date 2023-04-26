@@ -53,6 +53,8 @@ function Navbar () {
     useEffect( () => {
         console.log(clickedStatus);
     }, [clickedStatus]);
+
+
     return (
         <>
         <div className="master">   
@@ -85,15 +87,13 @@ function Navbar () {
                 })}
                     <Link to="/login"><button className="navbar-links-mobile">Sign In</button></Link>
                 </ul>
-        </nav>
-        <a href={bookData.selfLink}>
-       
-            <div className="container">
-                <Card book={bookData}/>
-            </div>
-       
-        </a>
-    </div> 
+            </nav>
+            {/* <a href={bookData.selfLink}> */}
+                <div className="container">
+                    <Card book={bookData}/>
+                </div>
+            {/* </a> */}
+        </div> 
     </>
 
     );
