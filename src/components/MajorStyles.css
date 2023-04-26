@@ -1,0 +1,54 @@
+.major{
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+.major-mid{
+    height:  70vh;
+    width: 100%;
+    position: relative;
+}
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.major-text{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.major-text h1{
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    background-color: #ffffff;
+    -webkit-background-clip: text;
+    webkit-background-color: transparent;
+}
+.major-text p{
+    font-size: 1.3rem;
+    
+    color: white;
+    padding: 0.5rem 0 2rem 0;
+}
+.major-text .show{
+    text-decoration: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: black;
+    background-color: #fff;
+}
+.major-text .hide{
+    display: none;
+}
+@media screen and (max-width: 555px) {
+    .major-text h1 {
+        padding: 10px 20px;
+    }
+}

@@ -1,0 +1,143 @@
+
+.card {
+    display: inline-block;
+    align-items: center;
+    height: 400px; /* or any height you want */
+    background-color: var(-secondary-color);
+    border-radius: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 10px;
+    box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25);
+    transition: 0.5s;
+    text-align: center;
+    position: relative;
+
+  }
+  .card:hover{
+    transform: scale(0.9);
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .card img {
+    width: 100%;
+    max-height: 69%;
+    object-fit:fill;
+    padding: 0.6rem 0.6rem;
+  }
+  .card .bottom {
+    position: relative;
+    display: flex;
+    margin-top: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 50%;
+
+    text-decoration: none;
+    color : #222;
+    font-weight : 700;
+  }
+
+  .card .bottom .title {
+    font-size: 0.9rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    width: 90%;
+    margin: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+
+  }
+  
+  .card .bottom .author {
+    font-size: 0.8rem;
+    color:rgb(118, 118, 118);
+    font-weight: lighter;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+
+  }
+
+  
+  .card .bottom .amount {
+    position: relative;
+    bottom: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    width: 90%;
+    margin: auto;
+  }
+  .bottom-buttons {
+    display : grid;
+    /* margin-top: 1.1rem; */
+    grid-template-columns: repeat(2, auto);
+    grid-gap : 1em;
+    /* list-style : none; */
+    transform: translate(0, -2rem);
+    align-items : center;
+  }
+
+  .card-read-button {
+    text-decoration: none;
+    color : #222;
+    font-size: 1em;
+    font-weight : 700;
+    padding : 0.7rem 1em;
+    white-space: nowrap;
+    border-radius: 0.3rem;
+    background-color: white;
+  }
+  .card-read-button:hover {
+    background-color:rgb(46, 169, 169);
+    font-size: 1.2em;
+    font-weight : 600;
+    white-space: nowrap;
+    color:#fff;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card-buy-button {
+    text-decoration: none;
+    color : #222;
+    font-size: 1em;
+    border-radius: 0.3rem;
+    font-weight : 700;
+    padding : 0.7rem 1em;
+    white-space: nowrap;
+    border:none;
+    background-color: white;
+  }
+  .card-buy-button:hover {
+    background-color:rgb(46, 169, 169);
+    font-size: 1.2em;
+    font-weight : 600;
+    white-space: nowrap;
+    color:#fff;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+  }
