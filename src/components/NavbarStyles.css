@@ -58,9 +58,10 @@
     /* box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25); */
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(5, minmax(15rem, 0.5fr));
+    grid-template-columns: repeat(4, minmax(14rem, 0.5fr));
     grid-gap: 20px;
     box-sizing:border-box;
+   
 }
 .navbar-logo{
     color : #222;

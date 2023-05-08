@@ -20,7 +20,7 @@ function Navbar () {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q='+${search}`+'&filter=ebooks')
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q='+${search}`+'&filter=ebooks&maxResults=12')
         // axios.get(`https://www.googleapis.com/books/v1/volumes?q='+${search}`)
         .then(response => {
             //console.log({search});
@@ -90,7 +90,7 @@ function Navbar () {
             </nav>
             {/* <a href={bookData.selfLink}> */}
                 <div className="container">
-                    <Card book={bookData}/>
+                    <Card bookData={bookData}/>
                 </div>
             {/* </a> */}
         </div> 
