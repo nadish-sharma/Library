@@ -1,4 +1,4 @@
-import "./MajorStyles.css"
+import "./componentCSS/MajorStyles.css"
 import React from 'react'
 function Major(props) {
     return(

@@ -8,16 +8,16 @@
     padding-left: 0;
     padding-right: 0;
     margin-bottom: 10px;
-    box-shadow : 0 0.5rem 1rem rgba(18, 87, 223, 0.25);
+    box-shadow : 0 0.5rem 1rem rgba(50, 51, 54, 0.25);
     transition: 0.5s;
     text-align: center;
     position: relative;
   }
   .card:hover{
-    transform: scale(1.1);
-    box-shadow : 0 1rem 1.5rem rgba(18, 87, 223, 0.25);
+    transform: scale(1.05);
+    box-shadow : 0 1rem 1.5rem rgba(223, 18, 97, 0.25);
     border-width: 5px;
-    border-color: rgba(18, 87, 223, 0.25);
+    border-color: rgba(223, 18, 97, 0.25);
   }
   a {
     text-decoration: none;
@@ -58,7 +58,7 @@
     width: 90%;
     margin: auto;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
 
   }
@@ -75,7 +75,7 @@
     margin: auto;
     margin-bottom: 1rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-line-clamp: 1; /* number of lines to show */
     -webkit-box-orient: vertical;
 
   }

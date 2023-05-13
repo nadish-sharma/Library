@@ -1,5 +1,5 @@
 import React from 'react'
-import "./CardStyles.css";
+import "./componentCSS/CardStyles.css";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import BookDescriptionModal from './BookDescriptionModal';
@@ -25,16 +25,9 @@ function Card({ bookData }) {
                   ) : (
                     <p className="amount">{book.saleInfo.listPrice.amount} {book.saleInfo.listPrice.currencyCode}</p>
                   )}
-                  {/* <div className="bottom-buttons">
-        <button className="card-read-button" type="submit">Read</button>
-        <button className="card-buy-button" type="submit">Buy</button>
-    </div> */}
-                  {/* <a href={book.selfLink}><p>{book.selfLink}</p> </a> */}
+                 
+
                 </div>
-                {/* </Link> */}
-                {/* fdf */}
-                {/* </Link> */}
-              {/* </a> */}
             </div>
             </>
           ))}

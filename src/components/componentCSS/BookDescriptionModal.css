@@ -24,6 +24,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
 }
 .embedded-viewer{
     height: 100%;
@@ -44,6 +46,7 @@
     border: none;
     font-size: 1.2rem;
     background-color: transparent;
+    
 }
 .overlay-inner .inner-box{
     margin-top: 2rem;
@@ -69,16 +72,28 @@
     color: rgb(0, 0, 2);
     font-size: 1.7rem;
     font-weight: bolder;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: scroll;
 }
 
 .overlay-inner .inner-box .info .author{
     /* margin-top: 0.5em; */
     color: rgb(178, 177, 177);
     font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: scroll;
 }
 .overlay-inner .inner-box .info .publisher{
     margin-top: 0.5em;
     color: rgb(0, 0, 0);
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .overlay-inner .inner-box .info button{
     margin-top: 1rem;
@@ -98,6 +113,9 @@
     margin-top: 2rem;
     text-align: justify;
     font-size: 0.9rem;
+    -webkit-line-clamp: 13; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: scroll;
 }
 .button-modal {
     display: flex;

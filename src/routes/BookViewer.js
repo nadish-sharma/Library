@@ -4,7 +4,7 @@ function BookViewer({ id, show }) {
   if (!show) {
     return null;
   }
-
+  {console.log({id})}
   useEffect(() => {
     const viewer = new window.google.books.DefaultViewer(
       document.getElementById('viewerCanvas')

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './BookDescriptionModal.css';
+import './componentCSS/BookDescriptionModal.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import BookViewer from '../routes/BookViewer';
+import Home from '../routes/Home';
 
 const BookDescriptionModal = ({ show, book, onClose }) => {
   const [showViewer, setShowViewer] = useState(false);
@@ -66,6 +67,7 @@ const BookDescriptionModal = ({ show, book, onClose }) => {
       </div>
       {showViewer && ( 
                       <div className="embedded-viewer">
+                          <Home show={showViewer}/>
                           <BookViewer id={book.id} show={showViewer} />
                       </div>
 

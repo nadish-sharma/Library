@@ -4,7 +4,9 @@
     text-align: center;
     position: relative;
     justify-content: center;
+    flex-direction: column;
   }
+  
   .search {
     display: flex;
     flex: 1;
@@ -30,6 +32,18 @@
     align-items: center;
     justify-content: center;
   }
+  .master .filterModal{
+        top: 400px;
+        font-family:cursive;
+        position:relative;
+        z-index: 10;
+  }
+  /* @media screen and (max-height: 45em)
+ {
+    .master .filterModal {
+
+    }
+ }   */
   .NavbarItems{
     display : flex;
     background-color: white;
@@ -44,7 +58,7 @@
     top: 1.2em;
     left: 50%;
     transform: translate(-50%);
-    z-index: 9999;
+    z-index: 2000;
 }
 .container {
     position: relative;
@@ -60,8 +74,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(14rem, 0.5fr));
     grid-gap: 20px;
-    box-sizing:border-box;
-   
+    box-sizing:border-box; 
 }
 .navbar-logo{
     color : #222;
@@ -158,8 +171,39 @@
     color:#fff;
 }
 
-
-@media screen and (max-width: 850px){
+@media screen and (max-width: 45em) {
+.container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    top: 8em;
+    width: 65%;
+    height: 20px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(14rem, 0.5fr));
+    grid-gap: 20px;
+    box-sizing:border-box; 
+}
+}
+@media screen and (min-width: 45em) and (max-width: 65em) {
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        top: 8em;
+        width: 65%;
+        height: 20px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(14rem, 0.5fr));
+        grid-gap: 20px;
+        box-sizing:border-box; 
+    }
     .navbar-menu{
         display : flex;
         flex-direction: column;
