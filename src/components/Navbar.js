@@ -1,12 +1,16 @@
 import "./componentCSS/NavbarStyles.css";
 import { MenuItems } from "./MenuItems";
 import axios from "axios";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
 import Card from "./Card";
 import SearchFiltersModal from "./SearchFilterModal";
+
+
+
 function Navbar () {
+    
     
     //We made use of useEffect hook to get updated state value//
     //https://stackoverflow.com/questions/61054275/usestate-with-boolean-value-in-react//
@@ -17,10 +21,17 @@ function Navbar () {
     const [error, setError] = useState('');
     const [bookData, setBookData] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
+    const [placeholderValue, setPlaceholderValue] = useState("Search")
     const [book, setBook] = useState(null);
     const [errorBook, setErrorBook] = useState(null);
     const [url, setUrl] = useState("");
     const [filter, setFilter] = useState("");
+    let inputRef = useRef(null);
+
+
+    const setInputFocus = () => {
+        inputRef.current.focus();
+      };
 
     const updateUrl = (newUrl) => {
         setUrl(newUrl);
@@ -120,7 +131,7 @@ function Navbar () {
     const handleGetBookLibrary = async () => {
         try {
             const response = await axios.get(`${url}${search}`);
-            setBook(response.data);
+            setBookData(response.data);
           } catch (error) {
             console.error(error);
           }
@@ -129,21 +140,24 @@ function Navbar () {
         // axios.get(`http://localhost:8080/api/book/${search}`)
         .then(response => {
           console.log({search});
-          setBook(response.data);
+          setBookData(response.data);
           console.log(response.data)
           if(response.data==null) {
             console.log("User not found");
             setErrorBook("No such User Exists");
+            setSearch('');
           }
           else { 
             setErrorBook(null);
+            setSearch('');
           }
         })
         .catch(errorBook => {
             
             if (errorBook.response && error.response.status === 404) {
                 setErrorBook("Please enter your User ID");
-                setBook(null);
+                setBookData(null);
+                setSearch('');
                 console.log(errorBook);
             }
         });
@@ -165,8 +179,9 @@ function Navbar () {
                         <i className="fas fa-search"></i>
                     </button>
                     <input onClick={() => setShowFilters(true)}
+                         ref={inputRef}
                         type="text"
-                        placeholder="Search"
+                        placeholder={placeholderValue}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />       
@@ -193,7 +208,12 @@ function Navbar () {
             {console.log({showFilters})};
 
             <div className="filterModal">
-                {showFilters && <SearchFiltersModal url={url} onUpdateUrl={updateUrl} filter={filter} onUpdateFilter={updateFilter} search={search}  onClose={() => setShowFilters(false)}/>}
+                {showFilters && <SearchFiltersModal  url={url} onUpdateUrl={updateUrl} 
+                filter={filter} onUpdateFilter={updateFilter} 
+                search={search} 
+                setPlaceholderValue={setPlaceholderValue}
+                setInputFocus={setInputFocus}
+                onClose={() => setShowFilters(false)}/>}
             </div>
 
              <div className="container">
