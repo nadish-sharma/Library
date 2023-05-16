@@ -28,38 +28,23 @@ function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,s
         }
       };
 
-      const handleFilterClick = (event) => {
-      
-        const buttonElement = event.target.closest('button');
+      const handleFilterClick = (event, title) => {
+        setPlaceholderValue(title);
+        setInputFocus();
         
-        if (buttonElement) {
-            setInputFocus();  //sets focus back to input form
-            console.log(buttonElement.textContent)
-            setPlaceholderValue(buttonElement.textContent)
-          if (buttonElement.textContent === 'library:') {
-            onUpdateUrl(`http://localhost:8080/api/book/`);
-            console.log("success library");
-            console.log({url});
-          } else if (buttonElement.textContent === 'online:') {
-            onUpdateUrl(`https://www.googleapis.com/books/v1/volumes?q=`);
-            onUpdateFilter('&filter=ebooks&maxResults=12');
-
-            console.log({url});
-            // setUrl(`https://www.googleapis.com/books/v1/volumes?q=}&filter=ebooks&maxResults=12`);
-            console.log("success online");
-          } else if (buttonElement.textContent === 'free:') {
-            onUpdateUrl(`https://www.googleapis.com/books/v1/volumes?q=`);
-            onUpdateFilter('&filter=free-ebooks&maxResults=12');
-
-            console.log({url});
-            // setUrl(`https://www.googleapis.com/books/v1/volumes?q=}&filter=ebooks&maxResults=12`);
-            console.log("success online");
-          } 
-          else {
-            console.log("it did not print what was needed")
-          }
+        if (title === 'library:') {
+          onUpdateUrl('http://localhost:8080/api/book/');
+          console.log('Success: library');
+        } else if (title === 'online:') {
+          onUpdateUrl('https://www.googleapis.com/books/v1/volumes?q=');
+          onUpdateFilter('&filter=ebooks&maxResults=12');
+          console.log('Success: online');
+        } else if (title === 'free:') {
+          onUpdateUrl('https://www.googleapis.com/books/v1/volumes?q=');
+          onUpdateFilter('&filter=free-ebooks&maxResults=12');
+          console.log('Success: free');
         } else {
-          console.log("Button not clicked");
+          console.log('No match');
         }
       };
 
@@ -75,7 +60,11 @@ function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,s
           <ul className="modal-body-list">
             {SearchFilterItems.map((item, index) => {
               return (
-                <li key={index} className="search-list-body" onClick={(event)=> {handleFilterClick(event); clickHandler();}}>
+                <li
+                key={index}
+                className="search-list-body"
+                onClick={(event) => handleFilterClick(event, item.title)}
+                >
                   {/* <Link className={item.cName} to={item.url}> */}
                   <button className={!clickedStatus ? "search-links" : "search-links-clicked"} onClick={ handleFilterClick}>{item.title}</button><span>{item.description}</span>
                   {/* </Link> */}

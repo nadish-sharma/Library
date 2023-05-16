@@ -143,18 +143,18 @@ function Navbar () {
           setBookData(response.data);
           console.log(response.data)
           if(response.data==null) {
-            console.log("User not found");
-            setErrorBook("No such User Exists");
+            console.log("book not in library");
+            // setErrorBook("No such User Exists");
             setSearch('');
           }
           else { 
-            setErrorBook(null);
+            // setErrorBook(null);
             setSearch('');
           }
         })
         .catch(errorBook => {
             
-            if (errorBook.response && error.response.status === 404) {
+            if (errorBook.response || error.response.status === 404) {
                 setErrorBook("Please enter your User ID");
                 setBookData(null);
                 setSearch('');

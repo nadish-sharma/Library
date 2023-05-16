@@ -11,9 +11,7 @@
     
 }
 .modal-filter{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    position: fixed;
     width: 40%;
     height: 12em;
     box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25);
@@ -35,22 +33,21 @@
 .modal-header {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bolder;
+    
 }
-.modal-body {
-    display: flex;
-    flex-direction: column;
-}
+/* .modal-body {
+    position: fixed;
+} */
 .modal-body-list {
     /* text-decoration: none; */
     color : #222;
     display: flex;
     flex-direction: column;
+    align-items: ;
     list-style : none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: lighter;
     font-size:large;
-    align-content: flex-start;
-
     text-decoration: none;
     color : #222;
     padding : 0.7rem 1em;
@@ -64,9 +61,16 @@
     font-weight: 400;
     border-radius: 4px;
     border: none;
-    margin-right: 10em;
+    /* margin-right: 10em; */
     z-index: 100;
+    margin-right: 0.5em;
 }
+.search-list-body span {
+  flex-grow: 1; /* Allow the description to grow and fill the available space */
+  margin-left: 0.5em; /* Adjust the spacing between the button and the description */
+  width: 100px; /* Set a fixed width for the description */
+}
+
 .search-links-clicked {
     background-color: rgb(243, 243, 243);
     white-space: nowrap;
@@ -74,7 +78,7 @@
     font-weight: 400;
     border-radius: 4px;
     border: none;
-    margin-right: 10em;
+    margin-right: 0.5em;
     z-index: 100;
 }
 /* .search-links-clicked button{
@@ -86,6 +90,10 @@
     padding-bottom: 0.2em;
     margin-top: 0.1em;
     margin-bottom: 0.1em;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    cursor: pointer;
 }
 .search-list-body:hover{
     background-color: rgb(243, 243, 243);
@@ -101,6 +109,8 @@
     margin-top: 0.1em;
     margin-bottom: 0.1em;
     background-color: rgb(243, 243, 243);
+    display: flex;
+    align-items: center;
 }
 .search-list-body-clicked button{
     padding-top: 0.2em;

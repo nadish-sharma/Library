@@ -5,8 +5,19 @@ import axios from 'axios';
 import BookViewer from '../routes/BookViewer';
 import Home from '../routes/Home';
 
-const BookDescriptionModal = ({ show, book, onClose }) => {
+const BookDescriptionModal = ({ isLibraryBook, show, book, onClose }) => {
   const [showViewer, setShowViewer] = useState(false);
+
+  let title;
+  let author;
+  let publisher;
+  let publishedDate;
+  let description;
+  // let id;
+  let saleability;
+  let thumbnail;
+  // let amount;
+  // let currency;
 
   const handleClose = (event) => {
     // Check if the click is on the close button or outside the inner-box div
@@ -21,14 +32,31 @@ const BookDescriptionModal = ({ show, book, onClose }) => {
   if (!show) {
     return null;
   }
+  if(isLibraryBook) {
+    thumbnail = book.thumbnail;
+    title = book.title;
+    author = book.author;
+    publisher = book.publisher;
+    publishedDate = book.publishedDate;
+    description = book.description;
+    saleability = book.saleability
+  } else{
+    thumbnail = book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail;
+    title = book.volumeInfo.title;
+    author = book.volumeInfo.authors;
+    publisher = book.volumeInfo.publisher;
+    publishedDate = book.volumeInfo.publishedDate;
+    description = book.volumeInfo.description;
+    saleability = book.saleInfo.saleability;
+  }
 
-  let thumbnail = book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail;
-  const title = book.volumeInfo.title;
-  const author = book.volumeInfo.authors;
-  const publisher = book.volumeInfo.publisher;
-  const publishedDate = book.volumeInfo.publishedDate;
-  const description = book.volumeInfo.description;
-  const saleability = book.saleInfo.saleability;
+  // let thumbnail = book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail;
+  // const title = book.volumeInfo.title;
+  // const author = book.volumeInfo.authors;
+  // const publisher = book.volumeInfo.publisher;
+  // const publishedDate = book.volumeInfo.publishedDate;
+  // const description = book.volumeInfo.description;
+  // const saleability = book.saleInfo.saleability;
 
   const openViewer = (event) => {
     handleClose(event);
