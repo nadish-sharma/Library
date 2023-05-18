@@ -1,6 +1,7 @@
 export const SearchFilterItems = [
     {
         title : "library:",
+<<<<<<< HEAD
         urlStart1 : "",
         urlStart2:"http://localhost:8080/api/book/",
         filterLink1: "",
@@ -20,10 +21,23 @@ export const SearchFilterItems = [
         description: "search online",
         cName : "search-links",
         filterNumber: 2
+=======
+        url : "https://www.googleapis.com/books/v1/volumes?q=",
+        description: "search library catalogue",
+        cName : "search-links",
+        // icon : "fa-solid fa-house-user"
+    },
+    {
+        title : "online:",
+        url : "http://localhost:8080/api/book/",
+        description: "search online",
+        cName : "search-links",
+>>>>>>> dde8b8ac7aaef29180a3a05d85e342cbfd5a4526
         // icon : "fa-solid fa-circle-info"
     },
     {
         title : "free:",
+<<<<<<< HEAD
         urlStart1 : "https://www.googleapis.com/books/v1/volumes?q=",
         urlStart2:"",
         filterLink1: "&filter=free-ebooks&maxResults=12",
@@ -68,5 +82,11 @@ export const SearchFilterItems = [
         filterNumber: 6
         // icon : "fa-solid fa-house-user"
         
+=======
+        url : "/updateUser",
+        description: "search free e-books",
+        cName : "search-links",
+        // icon : "fa-solid fa-briefcase"
+>>>>>>> dde8b8ac7aaef29180a3a05d85e342cbfd5a4526
     }
 ]
