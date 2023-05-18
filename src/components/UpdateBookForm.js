@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import bookImg from "../images/books.jpg"
-import Navbar from './Navbar';
-import "./componentCSS/AddBookFormStyles.css";
+import Navbar from '../components/Navbar';
+import bookImg from "../images/books.jpg";
+import "./componentCSS/UpdateBookFormStyles.css";
 
-function AddBookForm(props) {
-  const [title, setTitle] = useState('');
+function UpdateBookForm() {
   const [bookId, setBookId] = useState('');
+  const [title, setTitle] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [description, setDescription] = useState('');
   const [publication, setPublication] = useState('');
-  const [isbn, setIsbn] = useState('')
+  const [isbn, setIsbn] = useState('');
+  const [showUpdatedBook, setShowUpdatedBook] = useState(false);
   const [publishedDate, setPublishedDate] = useState('');
   const [isAvailable, setIsAvailable] = useState('');
   const [isLibraryBook, setIsLibraryBook] = useState('');
@@ -18,14 +19,13 @@ function AddBookForm(props) {
   const [thumbnail,setThumbnail] = useState(bookImg);
   const [bookCount, setBookCount] = useState(0);
   const [totalBookCount, setTotalBookCount] = useState(0);
-  const [book, setBook] = useState(null);
+
   const [error, setError] = useState(null);
 
   
-  const handleSubmit = (e) => {
-    setBookCount(bookCount + 1);
-    e.preventDefault();
-    axios.post(`http://localhost:8080/api/book`, {
+
+  const handleUpdateBook = () => {
+    axios.put(`http://localhost:8080/api/book/${bookId}`, {
       bookId: bookId,
       title: title,
       authorName: authorName,
@@ -39,40 +39,17 @@ function AddBookForm(props) {
       bookCount: bookCount,
       thumbnail: bookImg
     })
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.error(error));
-    .then(response => {
-        console.log(response.data)
-        setBook(response.data);
-        setBookId('');
-        setTitle('');
-        setAuthorName('');
-        setDescription('');
-        setPublication('');
-        setPublishedDate('');
-        setIsbn('');
-        setIsAvailable(false);
-        setIsLibraryBook(false);
-        setAmount('');
-        setThumbnail(thumbnail);
-
-
-      })
-      .catch(error => {
-        console.error(error);
-        setError("book not added!");
-      });
-  
-    // setBookCount(bookCount + 1);
-    setTotalBookCount(totalBookCount + 1);
-  };
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
+    setShowUpdatedBook(true);
+  }
 
   return (
     <>
     <Navbar />
-    <div style={{ marginTop: '12em' }}>
-      <h2>Add book</h2>
-      <form className='add-book-form' onSubmit={handleSubmit}>
+    <div style={{ marginTop: '12em' , alignContent:'center' }}>
+      <h2>Update book</h2>
+      <form className='update-book-form' onSubmit={e => { e.preventDefault(); handleUpdateBook(); }}>
         <label>
           Book Id:
           <input type="text" value={bookId} onChange={e => setBookId(e.target.value)} />
@@ -109,21 +86,23 @@ function AddBookForm(props) {
           Availability:
           <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
         </label>
-        <button type="submit">Add Book</button>
+        <button type="submit" >Update Book</button>
       </form>
-      {error && <p>{error}</p>}
-      {book && (
+      {/* {error && <p>{error}</p>} */}
+      {showUpdatedBook && 
         <div>
           <h3>book Details</h3>
-          <p>book Id: {book.bookId}</p>
-          <p>title: {book.title}</p>
-          <p>author name: {book.authorName}</p>
-          <p>description: {book.description}</p>
-          <p>availability: {book.isAvailable ? 'Yes' : 'No'}</p>
-        </div>
-      )}
+          <p>book Id: {bookId}</p>
+          <p>title: {title}</p>
+          <p>author name: {authorName}</p>
+          <p>description: {description}</p>
+          <p>availability: {isAvailable ? 'Yes' : 'No'}</p>
+      </div>
+      }
+        
+      {/* )} */}
     </div></>
   );
 }
 
-export default AddBookForm;
+export default UpdateBookForm;

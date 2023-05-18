@@ -6,7 +6,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { useEffect } from "react";
 import Card from "./Card";
-function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,setInputFocus, setPlaceholderValue, onClose }) {
+function SearchFiltersModal({url, onUpdateFilterNumber, onUpdateUrl, onUpdateUrl2, onUpdateFilter, onUpdateFilter2 ,setInputFocus, setPlaceholderValue, onClose }) {
     // const [url, setUrl] = useState('');
     const [book, setBook] = useState(null);
     const[clickedStatus, setClicked] = useState(false);
@@ -28,21 +28,17 @@ function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,s
         }
       };
 
-      const handleFilterClick = (event, title) => {
+      const handleFilterClick = (event, title, urlStart1, urlStart2, filterLink1, filterLink2, filterNumber) => {
         setPlaceholderValue(title);
         setInputFocus();
         
-        if (title === 'library:') {
-          onUpdateUrl('http://localhost:8080/api/book/');
-          console.log('Success: library');
-        } else if (title === 'online:') {
-          onUpdateUrl('https://www.googleapis.com/books/v1/volumes?q=');
-          onUpdateFilter('&filter=ebooks&maxResults=12');
-          console.log('Success: online');
-        } else if (title === 'free:') {
-          onUpdateUrl('https://www.googleapis.com/books/v1/volumes?q=');
-          onUpdateFilter('&filter=free-ebooks&maxResults=12');
-          console.log('Success: free');
+        if (title) {
+          onUpdateUrl(urlStart1);
+          onUpdateUrl2(urlStart2)
+          onUpdateFilter(filterLink1);
+          onUpdateFilter2(filterLink2);
+          onUpdateFilterNumber(filterNumber);
+          console.log(`Success: ${title}`);
         } else {
           console.log('No match');
         }
@@ -63,11 +59,18 @@ function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,s
                 <li
                 key={index}
                 className="search-list-body"
-                onClick={(event) => handleFilterClick(event, item.title)}
+                onClick={(event) => handleFilterClick(event, item.title, item.urlStart1, item.urlStart2, item.filterLink1, item.filterLink2, item.filterNumber)}
                 >
-                  {/* <Link className={item.cName} to={item.url}> */}
-                  <button className={!clickedStatus ? "search-links" : "search-links-clicked"} onClick={ handleFilterClick}>{item.title}</button><span>{item.description}</span>
-                  {/* </Link> */}
+                  <button className={!clickedStatus ? "search-links" : "search-links-clicked"} 
+                  onClick={(event) => handleFilterClick(event, item.title, item.urlStart1, item.urlStart2, item.filterLink1, item.filterNumber)}
+                  >
+                    {item.title}
+                  </button>
+
+                  <span>
+                    {item.description}
+                  </span>
+  
                 </li>);
             })}
 
@@ -81,7 +84,7 @@ function SearchFiltersModal({url, onUpdateUrl, filter, onUpdateFilter, search ,s
     </div>
     <div>
       
-        {book != null &&
+        {(book != null) &&
           <div className="container">
             <Card bookData={book} />
           </div>}

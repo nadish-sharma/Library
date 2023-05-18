@@ -13,7 +13,7 @@
 .modal-filter{
     position: fixed;
     width: 40%;
-    height: 12em;
+    height: 16em;
     box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25);
     margin: 0 auto;
     box-sizing:border-box;
@@ -24,7 +24,8 @@
     box-sizing: border-box;
     font-size: 1.3rem;
     left: 43%;
-    top: 29%;
+    top: 34%;
+    z-index: 500000;
     transform: translate(-50%, -50%);
     border: 5px;
     border-color: black;
@@ -66,6 +67,7 @@
     margin-right: 0.5em;
 }
 .search-list-body span {
+    
   flex-grow: 1; /* Allow the description to grow and fill the available space */
   margin-left: 0.5em; /* Adjust the spacing between the button and the description */
   width: 100px; /* Set a fixed width for the description */
@@ -90,8 +92,9 @@
     padding-bottom: 0.2em;
     margin-top: 0.1em;
     margin-bottom: 0.1em;
+    width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin: 0;
     cursor: pointer;
 }
@@ -110,7 +113,7 @@
     margin-bottom: 0.1em;
     background-color: rgb(243, 243, 243);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 .search-list-body-clicked button{
     padding-top: 0.2em;
@@ -128,7 +131,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     top: 8em;
     width: 65%;
     height: 20px;

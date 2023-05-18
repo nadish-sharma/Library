@@ -1,11 +1,10 @@
 import React from 'react';
 import './componentCSS/CardStyles.css';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import BookDescriptionModal from './BookDescriptionModal';
 import bookImg from '../images/books.jpg';
 
-function Card({ bookData }) {
+function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, setLogoClickedStatus}) {
   const [show, setShow] = useState(false);
   const [bookItem, setItem] = useState();
   let bookArray;
@@ -27,10 +26,10 @@ function Card({ bookData }) {
     bookArray = bookData;
   }
   console.log("bookArray:", bookArray);
-const book0 = bookArray && bookArray.length > 0 ? bookArray[0] : null;
-console.log("book0:", book0);
-const isLibraryBook = book0 && book0.libraryBook ? book0.libraryBook : false;
-console.log("isLibraryBook:", isLibraryBook);
+  const book0 = bookArray && bookArray.length > 0 ? bookArray[0] : null;
+  console.log("book0:", book0);
+  const isLibraryBook = book0 && book0.libraryBook ? book0.libraryBook : false;
+  console.log("isLibraryBook:", isLibraryBook);
 
   // console.log(bookData.isLibraryBook);
 
@@ -107,7 +106,13 @@ console.log("isLibraryBook:", isLibraryBook);
       </div>
     ))}
   {console.log(bookItem)}
-  <BookDescriptionModal isLibraryBook={isLibraryBook} show={show} book={bookItem} onClose={() => setShow(false)} />
+  <BookDescriptionModal 
+    bookData={bookData} isLibraryBook={isLibraryBook} 
+    show={show} book={bookItem}
+    logoClickedStatus={logoClickedStatus}
+    setLogoClickedStatus={setLogoClickedStatus}
+    onClose={() => setShow(false)} 
+  />
 </>
 
   );
@@ -118,10 +123,7 @@ else {
   return(
     <h1>book not found in library</h1>
   )
-}
-  
-
- 
+} 
 }
 
 export default Card;

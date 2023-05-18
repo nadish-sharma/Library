@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import BookViewer from '../routes/BookViewer';
 import Home from '../routes/Home';
+import Navbar from './Navbar';
 
-const BookDescriptionModal = ({ isLibraryBook, show, book, onClose }) => {
+const BookDescriptionModal = ({ bookData, isLibraryBook, show, book, onClose }) => {
   const [showViewer, setShowViewer] = useState(false);
 
   let title;
@@ -95,8 +96,9 @@ const BookDescriptionModal = ({ isLibraryBook, show, book, onClose }) => {
       </div>
       {showViewer && ( 
                       <div className="embedded-viewer">
-                          <Home show={showViewer}/>
-                          <BookViewer id={book.id} show={showViewer} />
+                          {/* <Navbar/> */}
+                          {/* <Home show={showViewer}/> */}
+                          <BookViewer bookData={bookData} id={book.id} show={showViewer} />
                       </div>
 
       )}

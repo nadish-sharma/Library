@@ -1,11 +1,12 @@
 import "./componentCSS/NavbarStyles.css";
 import { MenuItems } from "./MenuItems";
 import axios from "axios";
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
 import Card from "./Card";
 import SearchFiltersModal from "./SearchFilterModal";
+import {BookItemsCRUD} from "./BookItemsCRUD";
 
 
 
@@ -14,21 +15,31 @@ function Navbar () {
     
     //We made use of useEffect hook to get updated state value//
     //https://stackoverflow.com/questions/61054275/usestate-with-boolean-value-in-react//
-    const {useEffect, useState } = React;
     const [clickedStatus, setClicked] = useState(false); //variable clickedStatus is initially set to False
     //onClick turns false value to true(made use in tertiary if-else statement to show something different on clicking)
     const [search, setSearch] = useState('');
     const [error, setError] = useState('');
     const [bookData, setBookData] = useState([]);
+    const [bookDataGoogle, setBookDataGoogle] = useState([]);
+    const [bookDataLibrary, setBookDataLibrary] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
     const [placeholderValue, setPlaceholderValue] = useState("Search")
     const [book, setBook] = useState(null);
     const [errorBook, setErrorBook] = useState(null);
     const [url, setUrl] = useState("");
+    const [url2, setUrl2] = useState("");
     const [filter, setFilter] = useState("");
+    const [logoClickedStatus, setLogoClickedStatus] = useState(false);
+    const [filter2, setFilter2] = useState("");
+    const [filterNumber, setFilterNumber] = useState("")
     let inputRef = useRef(null);
 
 
+    const handleLogoClick = (logoClickedStatus) => {
+        setLogoClickedStatus(!logoClickedStatus);
+        setBookData([]);
+        setBook(null);
+    }
     const setInputFocus = () => {
         inputRef.current.focus();
       };
@@ -36,23 +47,45 @@ function Navbar () {
     const updateUrl = (newUrl) => {
         setUrl(newUrl);
       };
+    const updateUrl2 = (newUrl) => {
+        setUrl2(newUrl);
+      };
     const updateFilter = (newFilter) => {
         setFilter(newFilter);
       };
+      const updateFilter2 = (newFilter) => {
+        setFilter2(newFilter);
+      };
+    const UpdateFilterNumber = (newFilterNumber) => {
+        setFilterNumber(newFilterNumber);
+    }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(filter==="&filter=ebooks&maxResults=12") {
+        if(filterNumber==1) {
+            handleGetBookLibrary();
+            setShowFilters(false);
+            
+        }
+        else if(filterNumber==2) {
             handleGetBookOnline();
             setShowFilters(false);
         }
-        else if(url==="http://localhost:8080/api/book/") {
-            handleGetBookLibrary();
+        else if(filterNumber==3 ){
+            handleGetFreeEbook();
             setShowFilters(false);
         }
-        else if(filter==="&filter=free-ebooks&maxResults=12"){
-            handleGetFreeEbook();
+        else if(filterNumber==4) {
+            handleGetAllLibraryBooks();
+            setShowFilters(false);
+        }
+        else if(filterNumber==5) {
+            handleGetBooksFromEverywhere();
+            setShowFilters(false);
+        }
+        else if(filterNumber==6) {
+            handleGetFreeBooksFromEverywhere();
             setShowFilters(false);
         }
         else {
@@ -71,36 +104,6 @@ function Navbar () {
     }, [clickedStatus]);
 
     const handleGetBookOnline = () => {
-       
-        console.log("url in handle book online "+{url})
-        axios.get(`${url}${search}${filter}`)
-        // axios.get(`https://www.googleapis.com/books/v1/volumes?q='+${search}`+'&filter=ebooks&maxResults=12')
-        // axios.get(`https://www.googleapis.com/books/v1/volumes?q='+${search}`)
-        .then(response => {
-            {console.log({url})}
-            setBookData(response.data.items)
-            setShowFilters(false)
-            console.log(response.data.items)
-            if(response.data==null) {
-              console.log("No such book found");
-              setError("No such Book Exists");
-              setSearch('');
-            }
-            else { 
-              setError(null);
-              setSearch('');
-            }
-          })
-          .catch(error => {
-              
-              if (error.response && error.response.status === 200) {
-                  setError("Unknown error");
-                  setSearch(null);
-                  console.log(error);
-              } })
-    }
-
-    const handleGetFreeEbook = () => {
        
         console.log("url in handle free ebook online "+{url})
         axios.get(`${url}${search}${filter}`)
@@ -128,15 +131,47 @@ function Navbar () {
               } })
     }
 
+    const handleGetFreeEbook = () => {
+        
+        console.log("url in handle free ebook online "+{url})
+        axios.get(`${url}${search}${filter}`)
+        .then(response => {
+            {console.log({url})}
+            setBookData(response.data.items)
+            setShowFilters(false)
+            console.log(response.data.items)
+            if(response.data==null) {
+              console.log("No such book found");
+              setError("No such Book Exists");
+              setSearch('');
+            }
+            else { 
+              setError(null);
+              setSearch('');
+            }
+          })
+          .catch(error => {
+              
+              if (error.response && error.response.status === 200) {
+                  setError("Unknown error");
+                  setSearch(null);
+                  console.log(error);
+              } })
+    }
+
     const handleGetBookLibrary = async () => {
+        // const modifiedQuery = encodeSearch(search);
+        
+        {console.log(search);}
         try {
-            const response = await axios.get(`${url}${search}`);
+            const response = await axios.get(`${url2}${search}`);
             setBookData(response.data);
           } catch (error) {
             console.error(error);
           }
-        console.log(`${url}${search}`)
-        axios.get(`${url}${search}`)
+        setFilter('');
+        console.log(`${url2}${search}`)
+        axios.get(`${url2}${search}`)
         // axios.get(`http://localhost:8080/api/book/${search}`)
         .then(response => {
           console.log({search});
@@ -156,33 +191,165 @@ function Navbar () {
             
             if (errorBook.response || error.response.status === 404) {
                 setErrorBook("Please enter your User ID");
-                setBookData(null);
+                // setBookData(null);
                 setSearch('');
                 console.log(errorBook);
             }
         });
       }
 
+      const handleGetAllLibraryBooks = async () => {
+       
+        {console.log(search);}
+        try {
+            const response = await axios.get(`${url2}`);
+            setBookData(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        setFilter('');
+        console.log(`${url2}`)
+        axios.get(`${url2}`)
+        
+        .then(response => {
+          console.log({search});
+          setBookData(response.data);
+          console.log(response.data)
+          if(response.data==null) {
+            console.log("book not in library");
+            // setErrorBook("No such User Exists");
+            setSearch('');
+          }
+          else { 
+            // setErrorBook(null);
+            setSearch('');
+          }
+        })
+        .catch(errorBook => {
+            
+            if (errorBook.response || error.response.status === 404) {
+                setErrorBook("Please enter your User ID");
+                // setBookData(null);
+                setSearch('');
+                console.log(errorBook);
+            }
+        });
+    }
+
+    const handleGetBooksFromEverywhere = async () => {
+       
+        const urlGoogle = `${url}${search}${filter}`;
+        const urlLibrary = `${url2}${search}`;
+      
+        try {
+          const response1 = await axios.get(urlGoogle);
+          const response2 = await axios.get(urlLibrary);
+      
+          // Combine the data from response1 and response2
+          const combinedData = [];
+          
+          if (response1.data && response1.data.items) {
+            combinedData.push(...response1.data.items);
+            setBookData(response1.data.items);     //then we add books from google books
+          }
+          if (response2.data) {
+            combinedData.push(...response2.data);   //first we add books from library
+            setBookData(response2.data);
+          }
+          
+          // Process the combined data
+          console.log('Combined Data:', combinedData);
+      
+          // Set the combined data in setBookData
+          setBookData(combinedData);
+          setShowFilters(false);
+      
+          if (combinedData.length === 0) {
+            console.log("No such book found");
+            setError("No such Book Exists");
+          } else {
+            setError(null);
+          }
+      
+          setSearch('');
+        } catch (error) {
+          // Error handling
+          console.error('Error:', error);
+          setError("Unknown error");
+          setSearch(null);
+        }
+      }
+      
+
+      const handleGetFreeBooksFromEverywhere = () => {
+        const urlGoogle = `${url}${search}${filter}`;
+        const urlLibrary = `${url2}${search}`;
+      
+        const request1 = axios.get(urlGoogle);
+        const request2 = axios.get(urlLibrary);
+      
+        axios.all([request1, request2])
+          .then(axios.spread((response1, response2) => {
+            // Combine the data from response1 and response2
+            const combinedData = [];
+            if (response1.data && response1.data.items) {
+              combinedData.push(...response1.data.items);
+              setBookData(response1.data.items);
+            }
+            if (response2.data) {
+              combinedData.push(...response2.data);
+              setBookData(response1.data);
+            }
+      
+            // Process the combined data
+            console.log('Combined Data:', combinedData);
+      
+            // Set the combined data in setBookData
+            setBookData(combinedData);
+            setShowFilters(false);
+      
+            if (combinedData.length === 0) {
+              console.log("No such book found");
+              setError("No such Book Exists");
+            } else {
+              setError(null);
+            }
+      
+            setSearch('');
+          }))
+          .catch(error => {
+            // Error handling
+            console.error('Error:', error);
+            setError("Unknown error");
+            setSearch(null);
+          });
+      }
+      
+      
+
     return (
         <>
         <div className="master">   
             <nav className="NavbarItems">
-                               
-                <Link to="/">
-                    <h2 className="navbar-logo">
-                        LibStack
-                    </h2>
-                </Link>
+                <div className="website-logo"></div>               
+                  <Link to="/" onClick={() =>{ handleLogoClick(logoClickedStatus); setSearch('');}}>
+                      <h1 className="navbar-logo">
+                          LibStack
+                      </h1>
+                      {/* <i className="fa-solid fa-book-medical"></i> */}
+                  </Link>
+                <div/>
 
-                <form className="search" onSubmit={handleSubmit}>
+                <form className="search" onSubmit={(e) => {handleSubmit(e); setLogoClickedStatus(false);}}>
                     <button type="submit">
                         <i className="fas fa-search"></i>
                     </button>
                     <input onClick={() => setShowFilters(true)}
-                         ref={inputRef}
+                        ref={inputRef}
                         type="text"
                         placeholder={placeholderValue}
                         value={search}
+                        
                         onChange={(e) => setSearch(e.target.value)}
                     />       
                 </form>
@@ -192,13 +359,20 @@ function Navbar () {
                 </div>
 
                 <ul className={clickedStatus ? "navbar-menu active" : "navbar-menu" }>
-                        {MenuItems.map((item, index) => {
+                        {/* {MenuItems.map((item, index) => {
                         return (
                         <li key={index}>
                             <Link className={item.cName} to={item.url}>
                                 <i className={item.icon}></i>{item.title}
                             </Link>
-                        </li>
+                        </li> */}
+                        {BookItemsCRUD.map((item, index) => {
+                        return (
+                        <li key={index}>
+                        <Link className={item.cName} to={item.url}>
+                            <i className={item.icon}></i>{item.title}
+                        </Link>
+                    </li>
                     );
                 })}
                     <Link to="/login"><button className="navbar-links-mobile">Sign In</button></Link>
@@ -208,17 +382,25 @@ function Navbar () {
             {console.log({showFilters})};
 
             <div className="filterModal">
-                {showFilters && <SearchFiltersModal  url={url} onUpdateUrl={updateUrl} 
-                filter={filter} onUpdateFilter={updateFilter} 
-                search={search} 
+                {showFilters && <SearchFiltersModal  
+                url={url} onUpdateUrl={updateUrl} 
+                url2={url2} onUpdateUrl2={updateUrl2}
+                filterNumber={filterNumber} onUpdateFilterNumber={UpdateFilterNumber}
+                filter={filter} onUpdateFilter={updateFilter}
+                filter2={filter2} onUpdateFilter2={updateFilter2}  
                 setPlaceholderValue={setPlaceholderValue}
                 setInputFocus={setInputFocus}
                 onClose={() => setShowFilters(false)}/>}
             </div>
-
-             <div className="container">
-                <Card bookData={bookData}/>
-             </div>
+            {!logoClickedStatus && (<div className="container">
+                <Card 
+                bookData={bookData}
+                bookDataGoogle={bookDataGoogle}
+                bookDataLibrary={bookDataLibrary} 
+                logoClickedStatus={logoClickedStatus} 
+                setLogoClickedStatus={setLogoClickedStatus}/>
+             </div>) }
+             
             
         </div> 
     </>
