@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-<<<<<<< HEAD
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
@@ -15,14 +14,11 @@ function BookViewer({ bookData, id, show }) {
     return null;
   }
 
-=======
-
 function BookViewer({ id, show }) {
   if (!show) {
     return null;
   }
   {console.log({id})}
->>>>>>> dde8b8ac7aaef29180a3a05d85e342cbfd5a4526
   useEffect(() => {
     const viewer = new window.google.books.DefaultViewer(
       document.getElementById('viewerCanvas')
@@ -31,7 +27,6 @@ function BookViewer({ id, show }) {
     viewer.load(`${id}`);
   }, [id]);
 
-<<<<<<< HEAD
   const handleBackClick = () => {
     setBackClickedStatus(true);
     // history.push("/"); // Go back to the previous page (search results)
@@ -54,13 +49,8 @@ function BookViewer({ id, show }) {
           </div>
         </div>
       )}
-=======
-  return (
-    <>
-      <div className="canvas" id="viewerCanvas" style={{ width: '50rem', height: '50rem', alignContent:'center' }}></div>
->>>>>>> dde8b8ac7aaef29180a3a05d85e342cbfd5a4526
     </>
   );
-}
+}}
 
 export default BookViewer;

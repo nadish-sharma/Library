@@ -70,23 +70,34 @@ function AddBookForm(props) {
   return (
     <>
     <Navbar />
-    <div style={{ marginTop: '12em' }}>
+    <div className="add-book" style={{ marginTop: '6em' }}>
       <h2>Add book</h2>
       <form className='add-book-form' onSubmit={handleSubmit}>
         <label>
-          Book Id:
+          Book Id: *
           <input type="text" value={bookId} onChange={e => setBookId(e.target.value)} />
         </label>
         <label>
-          Title:
+          Title: *
           <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
         </label>
         <label>
-          Author Name:
+          Author Name: *
           <input type="text" value={authorName} onChange={e => setAuthorName(e.target.value)} />
         </label>
         <label>
-          ISBN:
+          Description:
+          {/* <div
+            className="textarea-with-space"
+            type="text"
+            contentEditable="true"
+            value={description} onChange={e => setDescription(e.target.value)}
+            style={{ paddingTop: '6px', paddingBottom: '10px' }}
+          /> */}
+          <textarea type="text" style={{ "height": "13rem" }} value={description} onChange={e => setDescription(e.target.value)} />
+        </label>
+        <label>
+          ISBN: *
           <input type="text" value={isbn} onChange={e => setIsbn(e.target.value)} />
         </label>
         <label>
@@ -96,22 +107,32 @@ function AddBookForm(props) {
         <label>
           Published Date:
           <input type="text" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
+          <span style={{"font-style":"italic", "color":"gray", "fontSize":"0.9rem" }}>In yyyy/mm/dd format</span>
         </label>
-        <label>
-          Description:
-          <input type="text" style={{ "width": "10em", "height": "10em" }} value={description} onChange={e => setDescription(e.target.value)} />
-        </label>
-        <label>
-          Library Book:
-          <input type="checkbox" checked={isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
-        </label>
-        <label>
-          Availability:
+        {/* <label style={{"display":"flex" , "flex-direction":"row"}}>
+          Library Book: *
+          <input className="add-book-checkbox" type="checkbox" checked={isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
+          Availability: *
           <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
-        </label>
-        <button type="submit">Add Book</button>
+        </label> */}
       </form>
-      {error && <p>{error}</p>}
+    </div>
+
+    <div className="add-book-checkbox-platform" style={{"display":"flex" , "flex-direction":"row",  "margin-left":"20rem"}}>
+      <div className="add-book-checkbox-content">
+          Library Book: *
+          <input type="checkbox" checked={isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
+      </div>
+      <div className="add-book-checkbox-content">
+          Availability: *
+          <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
+      </div>    
+    </div>
+
+    <div className="submit-button-platform">
+      <button type="submit">Add Book</button>
+    </div>
+    {error && <p>{error}</p>}
       {book && (
         <div>
           <h3>book Details</h3>
@@ -122,7 +143,7 @@ function AddBookForm(props) {
           <p>availability: {book.isAvailable ? 'Yes' : 'No'}</p>
         </div>
       )}
-    </div></>
+      </>
   );
 }
 
