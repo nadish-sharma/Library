@@ -5,13 +5,13 @@ export const BookItemsCRUD = [
         cName : "navbar-links",
         icon : "fa-solid fa-book-medical"
     },
-    {
-        title : "Get Book",
-        url : "/getBook",
-        cName : "navbar-links",
-        icon : "fa-solid fa-circle-info"
+    // {
+    //     title : "Get Book",
+    //     url : "/getBook",
+    //     cName : "navbar-links",
+    //     icon : "fa-solid fa-circle-info"
 
-    },
+    // },
     {
         title : "Update Book",
         url : "/updateBook",

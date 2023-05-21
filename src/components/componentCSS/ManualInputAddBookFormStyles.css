@@ -1,0 +1,115 @@
+.manual-input-form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -5rem;
+}
+.manual-input-form label {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .manual-input-form input {
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+  }
+  
+  .manual-input-form textarea {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+  }
+  
+  .manual-input-form textarea:hover {
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+  }
+  
+  .manual-input-checkbox-platform {
+    /* margin-left: -10rem; */
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    border: 20px;
+    gap: 15rem;
+  }
+  
+  .manual-input-checkbox-content {
+    margin-left: -10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    gap: 1rem;
+    width: 10rem;
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+  }
+  .manual-input-checkbox-content input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+  
+  .manual-input-checkbox-content:hover {
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+  }
+  
+  .manual-input-form input:hover {
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+  }
+  
+  .submit-button-platform {
+    padding-top: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(31, 31, 31, 0.25);
+    width: 130%;
+    margin-left: -20rem;
+  }
+  
+  .submit-button-platform:hover {
+    box-shadow: 0 1rem 1.8rem rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+  }
+  
+  .submit-button-platform button {
+    margin-left: 17rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background-color: rgb(46, 169, 169);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+  }
+  
+  .submit-button-platform button:hover {
+    background-color: #01959a;
+  }
+  

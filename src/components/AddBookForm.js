@@ -3,147 +3,57 @@ import axios from 'axios';
 import bookImg from "../images/books.jpg"
 import Navbar from './Navbar';
 import "./componentCSS/AddBookFormStyles.css";
+import GetBookForm from './GetBookForm';
+import { Link } from 'react-router-dom';
+import ManualInputAddBookForm from './ManualInputAddBookForm'
 
 function AddBookForm(props) {
-  const [title, setTitle] = useState('');
-  const [bookId, setBookId] = useState('');
-  const [authorName, setAuthorName] = useState('');
-  const [description, setDescription] = useState('');
-  const [publication, setPublication] = useState('');
-  const [isbn, setIsbn] = useState('')
-  const [publishedDate, setPublishedDate] = useState('');
-  const [isAvailable, setIsAvailable] = useState('');
-  const [isLibraryBook, setIsLibraryBook] = useState('');
-  const [amount, setAmount] = useState('FREE');
-  const [thumbnail,setThumbnail] = useState(bookImg);
-  const [bookCount, setBookCount] = useState(0);
-  const [totalBookCount, setTotalBookCount] = useState(0);
-  const [book, setBook] = useState(null);
-  const [error, setError] = useState(null);
-
+  const [showManual, setShowManual] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
+  const [changeStyle1, setChangeStyle1] = useState(true);
+  const [changeStyle2, setChangeStyle2] = useState(false);
   
-  const handleSubmit = (e) => {
-    setBookCount(bookCount + 1);
-    e.preventDefault();
-    axios.post(`http://localhost:8080/api/book`, {
-      bookId: bookId,
-      title: title,
-      authorName: authorName,
-      description: description,
-      publication: publication,
-      publishedDate: publishedDate,
-      isbn: isbn,
-      isAvailable: isAvailable,
-      isLibraryBook: isLibraryBook,
-      amount: "FREE",
-      bookCount: bookCount,
-      thumbnail: bookImg
-    })
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.error(error));
-    .then(response => {
-        console.log(response.data)
-        setBook(response.data);
-        setBookId('');
-        setTitle('');
-        setAuthorName('');
-        setDescription('');
-        setPublication('');
-        setPublishedDate('');
-        setIsbn('');
-        setIsAvailable(false);
-        setIsLibraryBook(false);
-        setAmount('');
-        setThumbnail(thumbnail);
-
-
-      })
-      .catch(error => {
-        console.error(error);
-        setError("book not added!");
-      });
-  
-    // setBookCount(bookCount + 1);
-    setTotalBookCount(totalBookCount + 1);
-  };
+  const handleClickManualEntry = () => {
+    setShowManual(true);
+    setShowSearch(false);
+    setChangeStyle1(true);
+    setChangeStyle2(false);
+  }
+  const handleClickSearch = () => {
+    setShowSearch(true);
+    setShowManual(false);
+    setChangeStyle2(true);
+    setChangeStyle1(false);
+  }
 
   return (
     <>
-    <Navbar />
-    <div className="add-book" style={{ marginTop: '6em' }}>
-      <h2>Add book</h2>
-      <form className='add-book-form' onSubmit={handleSubmit}>
-        <label>
-          Book Id: *
-          <input type="text" value={bookId} onChange={e => setBookId(e.target.value)} />
-        </label>
-        <label>
-          Title: *
-          <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-        </label>
-        <label>
-          Author Name: *
-          <input type="text" value={authorName} onChange={e => setAuthorName(e.target.value)} />
-        </label>
-        <label>
-          Description:
-          {/* <div
-            className="textarea-with-space"
-            type="text"
-            contentEditable="true"
-            value={description} onChange={e => setDescription(e.target.value)}
-            style={{ paddingTop: '6px', paddingBottom: '10px' }}
-          /> */}
-          <textarea type="text" style={{ "height": "13rem" }} value={description} onChange={e => setDescription(e.target.value)} />
-        </label>
-        <label>
-          ISBN: *
-          <input type="text" value={isbn} onChange={e => setIsbn(e.target.value)} />
-        </label>
-        <label>
-          Publication:
-          <input type="text" value={publication} onChange={e => setPublication(e.target.value)} />
-        </label>
-        <label>
-          Published Date:
-          <input type="text" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
-          <span style={{"font-style":"italic", "color":"gray", "fontSize":"0.9rem" }}>In yyyy/mm/dd format</span>
-        </label>
-        {/* <label style={{"display":"flex" , "flex-direction":"row"}}>
-          Library Book: *
-          <input className="add-book-checkbox" type="checkbox" checked={isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
-          Availability: *
-          <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
-        </label> */}
-      </form>
-    </div>
-
-    <div className="add-book-checkbox-platform" style={{"display":"flex" , "flex-direction":"row",  "margin-left":"20rem"}}>
-      <div className="add-book-checkbox-content">
-          Library Book: *
-          <input type="checkbox" checked={isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
-      </div>
-      <div className="add-book-checkbox-content">
-          Availability: *
-          <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
-      </div>    
-    </div>
-
-    <div className="submit-button-platform">
-      <button type="submit">Add Book</button>
-    </div>
-    {error && <p>{error}</p>}
-      {book && (
-        <div>
-          <h3>book Details</h3>
-          <p>book Id: {book.bookId}</p>
-          <p>title: {book.title}</p>
-          <p>author name: {book.authorName}</p>
-          <p>description: {book.description}</p>
-          <p>availability: {book.isAvailable ? 'Yes' : 'No'}</p>
+      <Navbar />
+      <div className="add-book" style={{ 'marginTop': '6rem', 'marginBottom': '3rem'  }}>
+        <h2>Add book</h2>
+        <div className="add-book-options">
+          <button 
+          className={changeStyle1 ? 'style-active' : 'style-inactive'}
+          onClick={() => handleClickManualEntry()}>
+            Manual Input
+          </button>
+          <button 
+          className={changeStyle2 ? 'style-active' : 'style-inactive'}
+          onClick={() => handleClickSearch()}>
+            Search
+          </button>
         </div>
-      )}
-      </>
+
+        {showSearch && (
+          <GetBookForm/>
+        )}
+        
+        {showManual && (
+          <ManualInputAddBookForm/>
+        )}
+      </div>
+      
+    </>
   );
 }
 

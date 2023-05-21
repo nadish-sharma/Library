@@ -7,6 +7,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Card from "./Card";
 import SearchFiltersModal from "./SearchFilterModal";
 import {BookItemsCRUD} from "./BookItemsCRUD";
+import AddBookForm from './AddBookForm';
 
 
 
@@ -31,7 +32,8 @@ function Navbar () {
     const [filter, setFilter] = useState("");
     const [logoClickedStatus, setLogoClickedStatus] = useState(false);
     const [filter2, setFilter2] = useState("");
-    const [filterNumber, setFilterNumber] = useState("")
+    const [filterNumber, setFilterNumber] = useState("");
+    const [bookComponent, setBookComponent] = useState("false");
     let inputRef = useRef(null);
 
 
@@ -235,98 +237,105 @@ function Navbar () {
             }
         });
     }
-
     const handleGetBooksFromEverywhere = async () => {
-       
-        const urlGoogle = `${url}${search}${filter}`;
-        const urlLibrary = `${url2}${search}`;
-      
+      const urlGoogle = `${url}${search}${filter}`;
+      const urlLibrary = `${url2}${search}`;
+    
+      try {
+        let responseData1 = [];
+        let responseData2 = [];
+    
         try {
           const response1 = await axios.get(urlGoogle);
-          const response2 = await axios.get(urlLibrary);
-      
-          // Combine the data from response1 and response2
-          const combinedData = [];
-          
-          if (response1.data && response1.data.items) {
-            combinedData.push(...response1.data.items);
-            setBookData(response1.data.items);     //then we add books from google books
-          }
-          if (response2.data) {
-            combinedData.push(...response2.data);   //first we add books from library
-            setBookData(response2.data);
-          }
-          
-          // Process the combined data
-          console.log('Combined Data:', combinedData);
-      
-          // Set the combined data in setBookData
-          setBookData(combinedData);
-          setShowFilters(false);
-      
-          if (combinedData.length === 0) {
-            console.log("No such book found");
-            setError("No such Book Exists");
+          if (response1.status === 200) {
+            responseData1 = response1.data && response1.data.items ? response1.data.items : [];
           } else {
-            setError(null);
+            console.error('Error from source 1:', response1.status);
           }
-      
-          setSearch('');
-        } catch (error) {
-          // Error handling
-          console.error('Error:', error);
-          setError("Unknown error");
-          setSearch(null);
+        } catch (error1) {
+          console.error('Error from source 1:', error1);
         }
+    
+        try {
+          const response2 = await axios.get(urlLibrary);
+          if (response2.status === 200) {
+            responseData2 = response2.data || [];
+          } else {
+            console.error('Error from source 2:', response2.status);
+          }
+        } catch (error2) {
+          console.error('Error from source 2:', error2);
+        }
+    
+        setBookData([...responseData2, ...responseData1]);
+        setShowFilters(false);
+        setSearch('');
+    
+        if (responseData1.length === 0 && responseData2.length === 0) {
+          console.log("No such book found");
+          setError("No such Book Exists");
+        } else {
+          setError(null);
+        }
+      } catch (error) {
+        // Error handling
+        console.error('Unknown error:', error);
+        setError("Unknown error");
+        setSearch(null);
       }
+    }
+    
+    
       
 
-      const handleGetFreeBooksFromEverywhere = () => {
-        const urlGoogle = `${url}${search}${filter}`;
-        const urlLibrary = `${url2}${search}`;
-      
-        const request1 = axios.get(urlGoogle);
-        const request2 = axios.get(urlLibrary);
-      
-        axios.all([request1, request2])
-          .then(axios.spread((response1, response2) => {
-            // Combine the data from response1 and response2
-            const combinedData = [];
-            if (response1.data && response1.data.items) {
-              combinedData.push(...response1.data.items);
-              setBookData(response1.data.items);
-            }
-            if (response2.data) {
-              combinedData.push(...response2.data);
-              setBookData(response1.data);
-            }
-      
-            // Process the combined data
-            console.log('Combined Data:', combinedData);
-      
-            // Set the combined data in setBookData
-            setBookData(combinedData);
-            setShowFilters(false);
-      
-            if (combinedData.length === 0) {
-              console.log("No such book found");
-              setError("No such Book Exists");
-            } else {
-              setError(null);
-            }
-      
-            setSearch('');
-          }))
-          .catch(error => {
-            // Error handling
-            console.error('Error:', error);
-            setError("Unknown error");
-            setSearch(null);
-          });
+    const handleGetFreeBooksFromEverywhere = async () => {
+      const urlGoogle = `${url}${search}${filter}`;
+      const urlLibrary = `${url2}${search}`;
+    
+      try {
+        let responseData1 = [];
+        let responseData2 = [];
+    
+        try {
+          const response1 = await axios.get(urlGoogle);
+          if (response1.status === 200) {
+            responseData1 = response1.data && response1.data.items ? response1.data.items : [];
+          } else {
+            console.error('Error from source 1:', response1.status);
+          }
+        } catch (error1) {
+          console.error('Error from source 1:', error1);
+        }
+    
+        try {
+          const response2 = await axios.get(urlLibrary);
+          if (response2.status === 200) {
+            responseData2 = response2.data || [];
+          } else {
+            console.error('Error from source 2:', response2.status);
+          }
+        } catch (error2) {
+          console.error('Error from source 2:', error2);
+        }
+    
+        setBookData([...responseData2, ...responseData1]);
+        setShowFilters(false);
+        setSearch('');
+    
+        if (responseData1.length === 0 && responseData2.length === 0) {
+          console.log("No such book found");
+          setError("No such Book Exists");
+        } else {
+          setError(null);
+        }
+      } catch (error) {
+        // Error handling
+        console.error('Unknown error:', error);
+        setError("Unknown error");
+        setSearch(null);
       }
+    }
       
-      
-
     return (
         <>
         <div className="master">   
@@ -369,9 +378,11 @@ function Navbar () {
                         {BookItemsCRUD.map((item, index) => {
                         return (
                         <li key={index}>
+                          {/* <div className = {item.cName} onClick={(e)=> setBookComponent(true)}> */}
                         <Link className={item.cName} to={item.url}>
-                            <i className={item.icon}></i>{item.title}
+                            <i  className={item.icon}></i>{item.title}
                         </Link>
+                        {/* </div> */}
                     </li>
                     );
                 })}
@@ -381,6 +392,9 @@ function Navbar () {
 
             {console.log({showFilters})};
 
+            {/* {bookComponent && (
+              <AddBookForm/>
+            )} */}
             <div className="filterModal">
                 {showFilters && <SearchFiltersModal  
                 url={url} onUpdateUrl={updateUrl} 

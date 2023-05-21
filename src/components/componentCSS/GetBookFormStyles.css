@@ -1,0 +1,73 @@
+.get-book-form-body input{
+    width: 40rem;
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+}
+.get-book-form-body button {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background-color: rgb(46, 169, 169);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    top: 2em;
+    height: 20px;
+    /* box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25); */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(14rem, 0.5fr));
+    grid-gap: 20px;
+    box-sizing:border-box; 
+}@media screen and (max-width: 45em) {
+    .container{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        top: 8em;
+        width: 65%;
+        height: 20px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(14rem, 0.5fr));
+        grid-gap: 20px;
+        box-sizing:border-box; 
+    }
+    }
+    @media screen and (min-width: 45em) and (max-width: 65em) {
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            top: 8em;
+            width: 65%;
+            height: 20px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(14rem, 0.5fr));
+            grid-gap: 20px;
+            box-sizing:border-box; 
+        }
+    }    

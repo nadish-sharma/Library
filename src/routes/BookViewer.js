@@ -1,20 +1,13 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 
 
 
 function BookViewer({ bookData, id, show }) {
-  const history = useNavigate();
   const [backClickedStatus, setBackClickedStatus] = useState(false);
 
-  if (!show) {
-    return null;
-  }
-
-function BookViewer({ id, show }) {
   if (!show) {
     return null;
   }
@@ -51,6 +44,6 @@ function BookViewer({ id, show }) {
       )}
     </>
   );
-}}
+}
 
 export default BookViewer;
