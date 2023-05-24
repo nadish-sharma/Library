@@ -18,6 +18,16 @@
     box-shadow : 0 1rem 1.5rem rgba(223, 18, 97, 0.25);
     border-width: 5px;
     border-color: rgba(223, 18, 97, 0.25);
+    
+  }
+  .card i{
+    position: absolute;
+    margin-left: 11.5rem;
+    margin-top: 1rem;
+    z-index: 200;
+  }
+  .card i:hover{
+    cursor: pointer;
   }
   a {
     text-decoration: none;

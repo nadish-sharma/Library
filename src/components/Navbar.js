@@ -7,13 +7,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import Card from "./Card";
 import SearchFiltersModal from "./SearchFilterModal";
 import {BookItemsCRUD} from "./BookItemsCRUD";
-import AddBookForm from './AddBookForm';
 
 
 
 function Navbar () {
-    
-    
+
     //We made use of useEffect hook to get updated state value//
     //https://stackoverflow.com/questions/61054275/usestate-with-boolean-value-in-react//
     const [clickedStatus, setClicked] = useState(false); //variable clickedStatus is initially set to False

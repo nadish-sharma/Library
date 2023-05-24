@@ -81,10 +81,9 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    top: 8em;
+    margin-top: 8em;
     width: 65%;
     height: 20px;
-    /* box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25); */
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, minmax(14rem, 0.5fr));
@@ -184,6 +183,7 @@
 
 .navbar-links-mobile:hover {
     background-color: #01959a;
+
 }
 
 @media screen and (max-width: 45em) {

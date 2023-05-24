@@ -13,7 +13,7 @@ function GetBookForm() {
 
     const handleGetFreeBooksFromEverywhere = async () => {
       // const urlGoogle = `${url}${search}${filter}`; &filter=free-ebooks&maxResults=12
-      const urlGoogle = `${url}${search}&filter=free-ebooks&maxResults=12`;
+      const urlGoogle = `${url}${search}&filter=free-ebooks&maxResults=16`;
       const urlLibrary = `${url2}${search}`;
     
       try {
@@ -59,44 +59,7 @@ function GetBookForm() {
         setSearch(null);
       }
     }
-    // const handleGetBookLibrary = async () => {
- 
-    //     {console.log(search);}
-    //     try {
-    //         const response = await axios.get(`${url2}${search}`);
-    //         setBookData(response.data);
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    //     // setFilter('');
-    //     console.log(`${url2}${search}`)
-    //     axios.get(`${url2}${search}`)
-    //     // axios.get(`http://localhost:8080/api/book/${search}`)
-    //     .then(response => {
-    //       console.log({search});
-    //       setBookData(response.data);
-    //       console.log(response.data)
-    //       if(response.data==null) {
-    //         console.log("book not in library");
-    //         // setErrorBook("No such User Exists");
-    //         setSearch('');
-    //       }
-    //       else { 
-    //         // setErrorBook(null);
-    //         setSearch('');
-    //       }
-    //     })
-    //     .catch(errorBook => {
-            
-    //         if (errorBook.response || error.response.status === 404) {
-    //             setErrorBook("Please enter correct book title");
-    //             // setBookData(null);
-    //             setSearch('');
-    //             console.log(errorBook);
-    //         }
-    //     });
-    //   }
-
+  
     return(
         <>
     {/* <Navbar /> */}
@@ -114,7 +77,7 @@ function GetBookForm() {
   <div>
     <h1>Results</h1>
     {/* <h3>Book Details</h3> */}
-    <div className="container">
+    <div className="container-card">
       <Card bookData = {bookData}/>
     </div>
     

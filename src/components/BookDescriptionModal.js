@@ -15,7 +15,7 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, book, onClose }) 
   let publisher;
   let publishedDate;
   let description;
-  // let id;
+  let id;
   let saleability;
   let thumbnail;
   let buy;
@@ -48,7 +48,8 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, book, onClose }) 
     publisher = book.publisher;
     publishedDate = book.publishedDate;
     description = book.description;
-    saleability = book.saleability
+    saleability = book.saleability;
+    id = book.id;
     if(book.buy!=null && book.preview!=null) {
       buy = book.buy;
       preview = book.preview;
@@ -80,7 +81,8 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, book, onClose }) 
       // setBookCount(bookCount + 1);
       event.preventDefault();
       axios.post(`http://localhost:8080/api/book`, {
-        bookId: book.bookId,
+        id: book.id,
+        bookId: book.id,
         title: book.title,
         authorName: book.authorName,
         description: book.description,

@@ -3,11 +3,27 @@ import './componentCSS/CardStyles.css';
 import { useState } from 'react';
 import BookDescriptionModal from './BookDescriptionModal';
 import bookImg from '../images/books.jpg';
+import UpdateBookForm from './UpdateBookForm';
 
 function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, setLogoClickedStatus }) {
   const [show, setShow] = useState(false);
   const [bookItem, setItem] = useState();
   const [loading, setLoading] = useState(true); // Add loading state
+  const [isHovered, setIsHovered] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleEditModal = () => {
+    setShowEditModal(true);
+    setShow(false);
+    console.log({show});
+  }
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   let bookArray;
   let bookDataStructure = [];
   let title;
@@ -102,7 +118,20 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
     return (
       <>
         {bookDataStructure.map((book) => (
-          <div key={book.id} className="card" onClick={() => { setShow(true); setItem(book); }}>
+          
+          <div  key={book.id} 
+                className="card" 
+                onClick={() => { setShow(true); setItem(book); }}
+                onMouseEnter={handleHover}
+                onMouseLeave={handleMouseLeave}
+          >
+            {isHovered && 
+            
+            <i className="fa-solid fa-pen"   
+               onClick={() => handleEditModal()}>
+            </i>
+          }
+            
             <img src={book.thumbnail} alt="" />
             <div className="bottom">
               <h5 className="title">{book.title}</h5>
@@ -116,8 +145,11 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
               )}
             </div>
           </div>
+         
+
         ))}
         {console.log({bookItem})}
+        {showEditModal && <UpdateBookForm />}
         <BookDescriptionModal
           bookData={bookData} isLibraryBook={isLibraryBook}
           show={show} book={bookItem}

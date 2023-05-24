@@ -23,7 +23,7 @@
     text-align: center;
     border-radius: 4px;
 }
-.container {
+.container-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -31,14 +31,17 @@
     justify-content: center;
     top: 2em;
     height: 20px;
+    width: 65%;
     /* box-shadow : 0 0.5rem 1rem rgba(0, 0, 0, .25); */
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, minmax(14rem, 0.5fr));
     grid-gap: 20px;
     box-sizing:border-box; 
-}@media screen and (max-width: 45em) {
-    .container{
+}
+
+@media screen and (max-width: 45em) {
+    .container-card{
         position: relative;
         display: flex;
         flex-direction: column;
@@ -55,7 +58,7 @@
     }
     }
     @media screen and (min-width: 45em) and (max-width: 65em) {
-        .container {
+        .container-card {
             position: relative;
             display: flex;
             flex-direction: column;
