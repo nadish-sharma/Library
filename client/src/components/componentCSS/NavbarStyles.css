@@ -75,7 +75,7 @@
     z-index: 2000;
   }
   
-.container {
+.master .container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -187,7 +187,7 @@
 }
 
 @media screen and (max-width: 45em) {
-.container{
+.master .container{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -204,7 +204,7 @@
 }
 }
 @media screen and (min-width: 45em) and (max-width: 65em) {
-    .container {
+ .master .container {
         position: relative;
         display: flex;
         flex-direction: column;

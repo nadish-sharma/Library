@@ -1,61 +1,246 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import { useEffect } from 'react';
+import './GetUserStyles.css';
+import UpdateUser from './UpdateUser';
 
 function GetUser() {
   const [userId, setUserId] = useState('');
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-
-  const handleGetUser = () => {
-    axios.get(`http://localhost:8080/api/user/${userId}`)
-    .then(response => {
-      console.log({userId});
-      setUser(response.data);
-      console.log(response.data)
-      if(response.data==null) {
-        console.log("User not found");
-        setError("No such User Exists");
-      }
-      else { 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showUpdateUserMessage, setShowUpdateUserMessage] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
+  const [showDeleteUserMessage, setShowDeleteUserMessage] = useState(false);
+  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [admin, setAdmin] = useState(false);
+  
+  const handleSearch = () => {
+    const filteredUsers = users.filter(
+      (user) =>
+        user.userId.includes(searchTerm) ||
+        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setUsers(filteredUsers);
+  };
+  
+  const handleEditButtonClick = () => {
+    setShowEditUserModal(true);
+    setShowAddUserModal(false);
+    setShowDeleteUserMessage(false);
+  };
+  
+  const handleUpdateUser = () => {
+    axios
+      .put(`http://localhost:8080/api/user/${userId}`, {
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        admin: admin
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUsers((prevUsers) =>
+          prevUsers.map((u) => (u.userId === user.userId ? response.data : u))
+        );
+        setShowEditUserModal(false);
+      })
+      .catch((error) => console.error(error));
+  };
+  
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:8080/api/user`, {
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        admin: admin
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUsers((prevUsers) => [...prevUsers, response.data]);
+        setUser(response.data);
+        setUserId('');
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setAdmin(false);
+        setShowAddUserModal(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError("User not added!");
+      });
+  };
+  
+  const handleDeleteButtonClick = (userId) => {
+    axios
+      .delete(`http://localhost:8080/api/user/${userId}`)
+      .then(() => {
+        console.log(`User with ID ${userId} deleted.`);
+        setUsers((prevUsers) => prevUsers.filter((user) => user.userId !== userId));
+        setShowDeleteUserMessage(true);
+      })
+      .catch((error) => console.error(error));
+  };
+  
+  useEffect(() => {
+    handleGetAllUsers();
+  }, []);
+  
+  const handleGetAllUsers = () => {
+    axios
+      .get('http://localhost:8080/api/user')
+      .then((response) => {
+        setUsers(response.data);
         setError(null);
-      }
-    })
-    .catch(error => {
-        
+      })
+      .catch((error) => {
         if (error.response && error.response.status === 404) {
-            setError("Please enter your User ID");
-            setUser(null);
-            console.log(error);
+          setError('Please enter your User ID');
+          setUsers([]);
+          console.log(error);
         }
-    });
-  }
-
+      });
+  };
+  
   return (
     <>
-    <Navbar />
-    <div style={{marginTop: '12em'}}>
-      <h2>Get User by ID</h2>
-      <form onSubmit={e => { e.preventDefault(); handleGetUser(); }}>
-        <label>
-          User ID:
-          <input type="text" value={userId} onChange={e => setUserId(e.target.value)} />
-        </label>
-        <button type="submit">Get User</button>
-      </form>
-      {error && <p>{error}</p>}
-      {user && (
-        <div>
-          <h3>User Details</h3>
-          <p>First Name: {user.firstName}</p>
-          <p>Last Name: {user.lastName}</p>
-          <p>Email: {user.email}</p>
-          <p>Admin: {user.admin ? 'Yes' : 'No'}</p>
+      <Navbar />
+      <div className="container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by ID or username..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
         </div>
-      )}
-    </div>
+        <div className="add-book-button-container">
+          <button className="add-book-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
+            Add User
+          </button>
+        </div>
+        {error && <p className="error">{error}</p>}
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Admin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.userId}>
+                <td>{user.userId}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+                <td>{user.admin ? 'Yes' : 'No'}</td>
+                <td>
+                  <button onClick={() => handleEditButtonClick()}>Edit</button>
+                  <button onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {showEditUserModal && (
+          <div className="edit-user-modal">
+            <h2>Update User</h2>
+            <form onSubmit={handleUpdateUser}>
+              <label>
+                User ID:
+                <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+              </label>
+              <label>
+                First Name:
+                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+              </label>
+              <label>
+                Last Name:
+                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+              </label>
+              <label>
+                Email:
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              </label>
+              <label>
+                Password:
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              </label>
+              <label>
+                Admin:
+                <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
+              </label>
+              <button type="submit">Update User</button>
+            </form>
+          </div>
+        )}
+        
+        {showDeleteUserMessage && (
+          <div>
+            <p>User deleted successfully</p>
+          </div>
+        )}
+
+        {showAddUserModal && (
+          <div>
+            <h2>Add User</h2>
+            <form onSubmit={handleAddUser}>
+              <label>
+                User Id:
+                <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+              </label>
+              <label>
+                First Name:
+                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+              </label>
+              <label>
+                Last Name:
+                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+              </label>
+              <label>
+                Email:
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              </label>
+              <label>
+                Password:
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              </label>
+              <label>
+                Admin:
+                <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
+              </label>
+              <button type="submit">Add User</button>
+            </form>
+          </div>
+        )}
+      </div>
     </>
   );
-}
+};
 
 export default GetUser;

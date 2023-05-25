@@ -95,6 +95,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.overlay-inner .inner-box .info .publishedDate{
+    margin-top: 0.5em;
+    color: rgb(0, 0, 0);
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 .overlay-inner .inner-box .info button{
     margin-top: 1rem;
     background-color:rgb(46, 169, 169);

@@ -11,12 +11,15 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   const [loading, setLoading] = useState(true); // Add loading state
   const [isHovered, setIsHovered] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [ID, setID] = useState('')
+
 
   const handleEditModal = () => {
     setShowEditModal(true);
     setShow(false);
     console.log({show});
   }
+
   const handleHover = () => {
     setIsHovered(true);
   };
@@ -27,7 +30,7 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   let bookArray;
   let bookDataStructure = [];
   let title;
-  let author;
+  let authorName;
   let id;
   let saleability;
   let thumbnail;
@@ -46,46 +49,50 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   }
   console.log("bookArray:", bookArray);
   const book0 = bookArray && bookArray.length > 0 ? bookArray[0] : null;
-  console.log("book0:", book0);
+  // console.log("book selected:", book0);
   const isLibraryBook = book0 && book0.libraryBook ? book0.libraryBook : false;
   console.log("isLibraryBook:", isLibraryBook);
 
   
   if (bookData != null) {
     bookArray.forEach((book) => {
-      if(book.thumbnail!=null) {
+      // if (book && book.libraryBook) {
+      if(book.thumbnail && book.thumbnail!=null) {
         thumbnail = book.thumbnail;
       }
       else {
         thumbnail = bookImg;
       }
-      if(book.description!=null) {
+      if(book.description&&book.description!=null) {
         description = book.description;
       } else{
         description = '';
       }
-      if(book.publishedDate!=null) {
+      if(book.publishedDate&&book.publishedDate!=null) {
         publishedDate = book.publishedDate;
       } else{
         publishedDate = null;
       }
-      if(book.publisher!=null) {
+      if(book.publisher&&book.publisher!=null) {
         publisher = book.publisher;
       } else{
         publishedDate = null;
       }
+
+      //every single book's info will be stored in these variables
       if (book && book.libraryBook) {
         bookDataStructure.push({
           amount: book.amount,
-          currency: 'CAD',
+          currency: book.currency,
           title: book.title,
-          author: book.authorName,
+          authorName: Array.isArray(book.authorName) ? book.authorName.join(', ') : String(book.authorName),
           id: book.bookId,
-          saleability: 'FREE',
+          bookId: book.bookId,
+          saleability: book.saleability,
           thumbnail: thumbnail,
-          description: description,
-          publishedDate: publishedDate,
-          publisher : publisher
+          description: book.description,
+          publishedDate: book.publishedDate,
+          publication : Array.isArray(book.publication) ? book.publication.join(', ') : String(book.publication),
         });
       } else {
         if (book.saleInfo && book.saleInfo.listPrice) {
@@ -97,74 +104,79 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
         }
         bookDataStructure.push({
           title: book.volumeInfo.title,
-          author: book.volumeInfo.authors,
+          authorName: Array.isArray(book.volumeInfo.authors) ? 
+            book.volumeInfo.authors.join(', ') : book.volumeInfo.authors || '',
           id: book.id,
+          bookId: book.id,
           saleability: book.saleInfo.saleability,
           thumbnail: book.volumeInfo.imageLinks.thumbnail,
-          description: book.volumeInfo.description,
-          publisher: book.volumeInfo.publisher,
-          publishedDate: book.volumeInfo.publishedDate,
+          description: book.volumeInfo.description || '',
+          publication: Array.isArray(book.volumeInfo.publisher) ? 
+            book.volumeInfo.publisher.join(', ') : book.volumeInfo.publisher || '',
+          publishedDate: book.volumeInfo.publishedDate || '',
           amount: amount,
           currency: currency,
           book : book,
-          preview : book.volumeInfo.previewLink,
-          buy : book.saleInfo.buyLink
+          preview : book.volumeInfo.previewLink || '',
+          buy : book.saleInfo.buyLink || ''
        
         });
       }
     });
-  
- if (bookDataStructure.length > 0) {
-    return (
-      <>
-        {bookDataStructure.map((book) => (
-          
-          <div  key={book.id} 
-                className="card" 
-                onClick={() => { setShow(true); setItem(book); }}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleMouseLeave}
-          >
-            {isHovered && 
+ 
+ 
+    if (bookDataStructure.length > 0) {
+      return (
+        <>
+          {bookDataStructure.map((book) => (
             
-            <i className="fa-solid fa-pen"   
-               onClick={() => handleEditModal()}>
-            </i>
-          }
-            
-            <img src={book.thumbnail} alt="" />
-            <div className="bottom">
-              <h5 className="title">{book.title}</h5>
-              <p className="author">{book.author}</p>
-              {book.saleability === 'FREE' ? (
-                <p className="amount">Free</p>
-              ) : (
-                <p className="amount">
-                  {book.amount} {book.currency}
-                </p>
-              )}
+            <div  key={book.id} 
+                  className="card" 
+                  onClick={() => { setShow(true); setItem(book); }}
+                  onMouseEnter={handleHover}
+                  onMouseLeave={handleMouseLeave}
+            >
+              {isHovered && 
+              
+              <i className="fa-solid fa-pen"   
+                 onClick={() => handleEditModal()}>
+              </i>
+            }
+              
+              <img src={book.thumbnail} alt="" />
+              <div className="bottom">
+                <h5 className="title">{book.title}</h5>
+                <p className="author">{book.author}</p>
+                {/* {book.saleability === 'FREE' ? (
+                  <p className="amount">Free</p>
+                ) : ( */}
+                  <p className="amount">
+                    {book.amount} {book.currency}
+                  </p>
+                {/* )} */}
+              </div>
             </div>
-          </div>
-         
-
-        ))}
-        {console.log({bookItem})}
-        {showEditModal && <UpdateBookForm />}
-        <BookDescriptionModal
-          bookData={bookData} isLibraryBook={isLibraryBook}
-          show={show} book={bookItem}
-          logoClickedStatus={logoClickedStatus}
-          setLogoClickedStatus={setLogoClickedStatus}
-          onClose={() => setShow(false)}
-        />
-      </>
-    );
+           
+  
+          ))}
+          {console.log({bookItem})}
+          {showEditModal && <UpdateBookForm />}
+          <BookDescriptionModal
+            bookData={bookData} isLibraryBook={isLibraryBook}
+            show={show} book={bookItem}
+            logoClickedStatus={logoClickedStatus}
+            setLogoClickedStatus={setLogoClickedStatus}
+            onClose={() => setShow(false)}
+          />
+        </>
+      );
+    }
   }
- } else {
-    return (
-      <h1>Book not found anywhere</h1>
-    );
+    else {
+      return (
+        <h1>Book not found anywhere</h1>
+      );
+    }
   }
-}
 
 export default Card;

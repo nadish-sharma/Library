@@ -1,5 +1,4 @@
 import "./componentCSS/NavbarStyles.css";
-import { MenuItems } from "./MenuItems";
 import axios from "axios";
 import React, {useRef, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
@@ -30,7 +29,7 @@ function Navbar () {
     const [filter, setFilter] = useState("");
     const [logoClickedStatus, setLogoClickedStatus] = useState(false);
     const [filter2, setFilter2] = useState("");
-    const [filterNumber, setFilterNumber] = useState("");
+    const [filterNumber, setFilterNumber] = useState(0);
     const [bookComponent, setBookComponent] = useState("false");
     let inputRef = useRef(null);
 
@@ -63,10 +62,13 @@ function Navbar () {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(filterNumber==1) {
+        if(filterNumber==0) {
+          handleGetBooks();
+          setShowFilters(false);
+        }
+        else if(filterNumber==1) {
             handleGetBookLibrary();
-            setShowFilters(false);
-            
+            setShowFilters(false);   
         }
         else if(filterNumber==2) {
             handleGetBookOnline();
@@ -89,8 +91,10 @@ function Navbar () {
             setShowFilters(false);
         }
         else {
+            
             console.log("some error in url");
         }
+        console.log({filterNumber});
 
 
           };      // Call your search function with the search query as input
@@ -102,6 +106,55 @@ function Navbar () {
     useEffect( () => {
         console.log(clickedStatus);
     }, [clickedStatus]);
+
+    const handleGetBooks = async () =>  {
+      const urlGoogle = `https://www.googleapis.com/books/v1/volumes?q=${search}&filter=ebooks&maxResults=16`;
+      const urlLibrary = `http://localhost:8080/api/book/${search}`;
+    
+      try {
+        let responseData1 = [];
+        let responseData2 = [];
+    
+        try {
+          const response1 = await axios.get(urlGoogle);
+          if (response1.status === 200) {
+            responseData1 = response1.data && response1.data.items ? response1.data.items : [];
+          } else {
+            console.error('Error from source 1:', response1.status);
+          }
+        } catch (error1) {
+          console.error('Error from source 1:', error1);
+        }
+    
+        try {
+          const response2 = await axios.get(urlLibrary);
+          if (response2.status === 200) {
+            responseData2 = response2.data || [];
+          } else {
+            console.error('Error from source 2:', response2.status);
+          }
+        } catch (error2) {
+          console.error('Error from source 2:', error2);
+        }
+    
+        setBookData([...responseData2, ...responseData1]);
+        setShowFilters(false);
+        setSearch('');
+    
+        if (responseData1.length === 0 && responseData2.length === 0) {
+          console.log("No such book found");
+          setError("No such Book Exists");
+        } else {
+          setError(null);
+        }
+      } catch (error) {
+        // Error handling
+        console.error('Unknown error:', error);
+        setError("Unknown error");
+        setSearch(null);
+      }
+    }
+    
 
     const handleGetBookOnline = () => {
        
@@ -366,13 +419,6 @@ function Navbar () {
                 </div>
 
                 <ul className={clickedStatus ? "navbar-menu active" : "navbar-menu" }>
-                        {/* {MenuItems.map((item, index) => {
-                        return (
-                        <li key={index}>
-                            <Link className={item.cName} to={item.url}>
-                                <i className={item.icon}></i>{item.title}
-                            </Link>
-                        </li> */}
                         {BookItemsCRUD.map((item, index) => {
                         return (
                         <li key={index}>
@@ -390,9 +436,6 @@ function Navbar () {
 
             {console.log({showFilters})};
 
-            {/* {bookComponent && (
-              <AddBookForm/>
-            )} */}
             <div className="filterModal">
                 {showFilters && <SearchFiltersModal  
                 url={url} onUpdateUrl={updateUrl} 

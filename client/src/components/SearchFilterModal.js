@@ -84,10 +84,10 @@ function SearchFiltersModal({url, onUpdateFilterNumber, onUpdateUrl, onUpdateUrl
     </div>
     <div>
       
-        {(book != null) &&
+        {/* {(book != null) &&
           <div className="container">
             <Card bookData={book} />
-          </div>}
+          </div>} */}
       </div></>
     
    

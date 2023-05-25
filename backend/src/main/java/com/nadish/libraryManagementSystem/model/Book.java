@@ -18,25 +18,28 @@ public class Book {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private ObjectId ID;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
     private String id;
     private String bookId;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
     private String authorName;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
     private String title;
     //    @NotBlank(message = "This field can't be empty")
     private String publication;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
+private String publishedDate;
+    //    @NotBlank(message = "This field can't be empty")
     private String isbn;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
     private boolean isAvailable;
-    @NotBlank(message = "This field can't be empty")
+//    @NotBlank(message = "This field can't be empty")
     private String description;
 
     private boolean isLibraryBook = true;
 //    @NotBlank(message = "This field can't be empty")
     private String amount = "FREE";
+    private String currency;
     private Object thumbnail;
 }
 

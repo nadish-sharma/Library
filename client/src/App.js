@@ -22,6 +22,7 @@ import {
   Route,
 } from "react-router-dom";
 import BookDescriptionModal from './components/BookDescriptionModal';
+import GetUser from './routes/GetUser';
 
 function App() {
   const [bookData, setBookData] = useState([]);
@@ -47,8 +48,8 @@ function App() {
             {/* <Route path="/getBook" element={<GetUser />} /> */}
             <Route path="/getBook" element={<GetBookForm />} />
             <Route path="/addBook" element={<AddBookForm />} />
-            <Route path="/updateBook" element={<UpdateBookForm />} />
-            <Route path="/deleteBook" element={<DeleteBookForm />} />
+            <Route path="/updateBook" element={<GetBookForm />} />
+            <Route path="/manageUsers" element={<GetUser />} />
             {/* <Route path="/updateBook" element={<UpdateUser />} /> */}
             {/* <Route path="/deleteBook" element={<DeleteUser />} /> */}
             <Route path="/login" element={<LoginForm />} />

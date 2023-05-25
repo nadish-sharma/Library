@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d987ba21-90fd-4eb4-86f6-fce0c8edbec6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/CorsFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/CorsFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/BookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/controllerinfo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/UserLoginDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/UserLoginDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/model.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/relation.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/BookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/BookRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/repoindo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/AdminService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/BookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/BookDescriptionModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/BookDescriptionModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/SearchFilterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/SearchFilterModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/UpdateBookForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/UpdateBookForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/componentCSS/BookDescriptionModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/componentCSS/BookDescriptionModal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/componentCSS/CardStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/componentCSS/CardStyles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2QE0UG7lCRKdqtdnmcFXOQaIswJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/temp-name/Downloads/Library/backend&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="LibraryManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.nadish.libraryManagementSystem.LibraryManagementSystemApplication" />
+      <module name="libraryManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nadish.libraryManagementSystem.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LibraryManagementSystemApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d987ba21-90fd-4eb4-86f6-fce0c8edbec6" name="Changes" comment="" />
+      <created>1684903448128</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684903448128</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

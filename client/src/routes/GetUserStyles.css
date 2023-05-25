@@ -1,0 +1,72 @@
+/* userTable.css */
+
+.container {
+    display: flex;
+    flex-direction: row;
+  }
+  .search-bar {
+    margin-bottom: 1em;
+  }
+  
+  .search-bar input {
+    padding: 0.5em;
+    font-size: 1em;
+    width: 300px;
+  }
+  
+  .search-bar button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .add-book-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1em;
+  }
+  
+  .add-book-button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  thead th {
+    background-color: #f2f2f2;
+    padding: 0.5em;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  tbody td {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Alternating row colors */
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect on rows */
+  tbody tr:hover {
+    background-color: #e6f7ff;
+    cursor: pointer;
+  }
+  

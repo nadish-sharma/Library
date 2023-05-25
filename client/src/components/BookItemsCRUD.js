@@ -19,8 +19,8 @@ export const BookItemsCRUD = [
         icon : "fa-solid fa-pen-to-square"
     },
     {
-        title : "Delete Book",
-        url : "/deleteBook",
+        title : "Manage Users",
+        url : "/manageUsers",
         cName : "navbar-links",
         icon : "fa-sharp fa-solid fa-trash"
     }

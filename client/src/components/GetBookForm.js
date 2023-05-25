@@ -11,9 +11,9 @@ function GetBookForm() {
     let url2='http://localhost:8080/api/book/';
     let url='https://www.googleapis.com/books/v1/volumes?q=';
 
-    const handleGetFreeBooksFromEverywhere = async () => {
+    const handleGetBooksFromEverywhere = async () => {
       // const urlGoogle = `${url}${search}${filter}`; &filter=free-ebooks&maxResults=12
-      const urlGoogle = `${url}${search}&filter=free-ebooks&maxResults=16`;
+      const urlGoogle = `${url}${search}&filter=ebooks&maxResults=16`;
       const urlLibrary = `${url2}${search}`;
     
       try {
@@ -65,7 +65,7 @@ function GetBookForm() {
     {/* <Navbar /> */}
     <div className="get-book-form-platform" style={{marginTop: '0.5rem'}}>
       <h4>Search book by title</h4>
-      <form className ="get-book-form-body" onSubmit={e => { e.preventDefault(); handleGetFreeBooksFromEverywhere(); }}>
+      <form className ="get-book-form-body" onSubmit={e => { e.preventDefault(); handleGetBooksFromEverywhere(); }}>
         <label>
           {/* Book title: */}
           <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
@@ -80,17 +80,6 @@ function GetBookForm() {
     <div className="container-card">
       <Card bookData = {bookData}/>
     </div>
-    
-    {/* {bookData.map((book, index) => (
-      <div key={index}>
-        <p>Book Id: {book.bookId}</p>
-        <p>Title: {book.title}</p>
-        <p>Author Name: {book.authorName}</p>
-        <p>Description: {book.description}</p>
-        <p>Availability: {book.available ? 'Yes' : 'No'}</p>
-        <hr />
-      </div>
-    ))} */}
   </div>
       )}
     </div>
