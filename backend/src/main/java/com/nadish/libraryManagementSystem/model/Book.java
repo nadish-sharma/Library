@@ -40,6 +40,7 @@ private String publishedDate;
 //    @NotBlank(message = "This field can't be empty")
     private String amount = "FREE";
     private String currency;
+    private String saleability;
     private Object thumbnail;
 }
 

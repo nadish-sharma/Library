@@ -1,4 +1,11 @@
 export const BookItemsCRUD = [
+
+    {
+        title : "Manage Users",
+        url : "/manageUsers",
+        cName : "navbar-links",
+        icon : "fa-solid fa-pen-to-square"
+    },
     {
         title : "Add Book",
         url : "/addBook",
@@ -12,16 +19,28 @@ export const BookItemsCRUD = [
     //     icon : "fa-solid fa-circle-info"
 
     // },
+
     {
-        title : "Update Book",
-        url : "/updateBook",
+        title : "Issue Book",
+        url : "/issueBook",
         cName : "navbar-links",
-        icon : "fa-solid fa-pen-to-square"
-    },
-    {
-        title : "Manage Users",
-        url : "/manageUsers",
-        cName : "navbar-links",
-        icon : "fa-sharp fa-solid fa-trash"
+        icon : "fa-brands fa-get-pocket"
+        
     }
+  
+   
 ]
+
+      // {
+    //     title : "Update Book",
+    //     url : "/updateBook",
+    //     cName : "navbar-links",
+    //     icon : "fa-solid fa-pen-to-square"
+    // },
+//     {
+//         title : "Manage Users",
+//         url : "/manageUsers",
+//         cName : "navbar-links",
+//         icon : "fa-sharp fa-solid fa-trash"
+//     }
+// ]

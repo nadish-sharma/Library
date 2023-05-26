@@ -5,35 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d987ba21-90fd-4eb4-86f6-fce0c8edbec6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/controller/BookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nadish/libraryManagementSystem/model/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/CorsFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/CorsFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/AdminController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/controller/controllerinfo.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Admin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/UserLoginDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/UserLoginDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/model/model.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/relation.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/BookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/BookRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/repository/repoindo.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/AdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nadish/libraryManagementSystem/service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/nadish/libraryManagementSystem/LibraryManagementSystemApplicationTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/components/BookDescriptionModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/BookDescriptionModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/Card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/SearchFilterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/SearchFilterModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/components/UpdateBookForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/UpdateBookForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/componentCSS/BookDescriptionModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/componentCSS/BookDescriptionModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/componentCSS/CardStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/componentCSS/CardStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

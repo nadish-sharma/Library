@@ -136,7 +136,7 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
                   onMouseEnter={handleHover}
                   onMouseLeave={handleMouseLeave}
             >
-              {isHovered && 
+               {isHovered && 
               
               <i className="fa-solid fa-pen"   
                  onClick={() => handleEditModal()}>
@@ -156,11 +156,15 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
                 {/* )} */}
               </div>
             </div>
-           
-  
           ))}
           {console.log({bookItem})}
-          {showEditModal && <UpdateBookForm />}
+          {showEditModal && 
+          <UpdateBookForm 
+          bookItem={bookItem}
+          ID={ID}
+          showEditModal={showEditModal}
+          setShowEditModal={setShowEditModal}
+          />}
           <BookDescriptionModal
             bookData={bookData} isLibraryBook={isLibraryBook}
             show={show} book={bookItem}

@@ -119,7 +119,7 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
                   </>
                 ) : (
                   <>
-                    <a href={book.preview}><button>Preview</button></a>
+                    <button onClick={openViewer}>Preview</button>
                     <a href={book.buy}><button>Buy</button></a>
                     <button className="read-button" onClick={handleAddBook}>Add Book</button>
                   </>

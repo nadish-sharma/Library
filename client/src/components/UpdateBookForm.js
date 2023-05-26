@@ -17,6 +17,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
   const [isAvailable, setIsAvailable] = useState('');
   const [isLibraryBook, setIsLibraryBook] = useState('');
   const [amount, setAmount] = useState('FREE');
+  const [currency, setCurrency] = useState('');
   const [thumbnail,setThumbnail] = useState(null);
   const [bookCount, setBookCount] = useState(0);
   const [totalBookCount, setTotalBookCount] = useState(0);
@@ -42,8 +43,8 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
   const handleClose = (event) => {
     // Check if the click is on the close button or outside the inner-box div
     if (
-      event.target.className === 'overlay' ||
-      event.target.className === 'close'    
+      event.target.className === 'overlay-edit-book' ||
+      event.target.className === 'close-book'    
     ) {
       setShowEditModal(false);
     }
@@ -64,16 +65,17 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
     axios.put(`http://localhost:8080/api/book/${ID}`, {
       bookId: bookId,
       title: title,
-      authorName: authorName || [],
+      authorName: authorName,
       description: description,
       publication: publication,
       publishedDate: publishedDate,
       isbn: isbn,
       isAvailable: isAvailable,
       isLibraryBook: isLibraryBook,
-      amount: "FREE",
-      bookCount: bookCount,
-      thumbnail: thumbnail
+      amount: amount,
+      currency: currency,
+      // bookCount: bookCount,
+      thumbnail: bookImg
     })
       .then(response => console.log(response.data))
       .catch(error => console.error(error));
@@ -86,9 +88,9 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
     {!showEditModal &&  <Navbar />} 
 
     {showEditModal && 
-    <div className="overlay" onClick={handleClose}>
+    <div className="overlay-edit-book" onClick={handleClose}>
         <div className="overlay-inner">
-          <button className="close" ><i className="fas fa-times"></i></button>
+          <button className="close-book" ><i className="fas fa-times"></i></button>
           <div className="inner-box">
             <img src={thumbnail} alt="" />
             <div className="info">
@@ -124,6 +126,14 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
           <input type="text" style={{ "width": "10em", "height": "10em" }}  value= {description} onChange={e => setDescription(e.target.value)} />
         </label>
         <label>
+          Price:
+          <input type="text"  value={amount} onChange={e => setAmount(e.target.value)} />
+        </label>
+        <label>
+          Currency:
+          <input type="text"  value={currency} onChange={e => setCurrency(e.target.value)} />
+        </label>
+        <label>
           Library Book:
           <input type="checkbox" checked={bookItem.isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
         </label>
@@ -131,10 +141,10 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
           Availability:
           <input type="checkbox" checked={bookItem.isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
         </label>
-        <label>
+        {/* <label>
           Thumbnail:
           <input type="file" accept="image/*" onChange={handleThumbnailChange} />
-        </label>
+        </label> */}
         <button type="submit" >Update Book</button>
       </form>
             </div>

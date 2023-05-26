@@ -1,45 +1,109 @@
 /* userTable.css */
 
 .container {
+  margin-top: -2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.search-add-container {
     display: flex;
     flex-direction: row;
   }
-  .search-bar {
+
+  .search-add-container .search-bar {
+    margin-left: -1rem;
     margin-bottom: 1em;
   }
   
-  .search-bar input {
-    padding: 0.5em;
-    font-size: 1em;
-    width: 300px;
-  }
-  
-  .search-bar button {
-    padding: 0.5em 1em;
-    font-size: 1em;
-    background-color: #4caf50;
-    color: white;
+  .search-add-container .search-bar-container input{
+    width: 20rem;
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
     border: none;
-    cursor: pointer;
-  }
-
-  .add-book-button-container {
+    height: 2.5em;
+    border-radius: 5px;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+}
+.search-add-container .search-bar-container button {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background-color: rgb(46, 169, 169);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+  
+  .add-user-button-container {
+    margin-left: -5rem;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1em;
   }
   
-  .add-book-button {
-    padding: 0.5em 1em;
-    font-size: 1em;
-    background-color: #4caf50;
-    color: white;
+  .add-user-button {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    margin-left: 20rem;
+    height: 3rem;
     border: none;
-    cursor: pointer;
+    background-color: rgb(46, 169, 169);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
   }
   
   .error {
     color: red;
+  }
+
+  .edit-button {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background-color: rgb(241, 187, 11);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .action-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5rem;
+  }
+  .delete-button {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: none;
+    background-color: rgb(205, 28, 28);
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .table-container {
+    margin-top: -3rem;
   }
   
   table {
@@ -68,5 +132,93 @@
   tbody tr:hover {
     background-color: #e6f7ff;
     cursor: pointer;
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Poppins:wght@300&display=swap');
+  .container .overlay{
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
+  }
+  .container .overlay-inner{
+      background: white;
+      border-radius: 0.5rem;
+      width: 32em;
+      /* max-height: fit-content; */
+      margin-top: 3.8rem;
+      height: 28em;
+      padding: 1.5rem;
+      position: fixed;
+      overflow: auto;
+      box-sizing: border-box;
+      font-size: 1.3rem;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+  }
+  .container .overlay-inner .close{
+      position: absolute;
+      top:1rem;
+      right: 1rem;
+      outline: none;
+      border: none;
+      font-size: 1.2rem;
+      background-color: transparent;
+      
+  }
+ 
+
+
+  .container .update-book-form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -5rem;
+  }
+  .container .update-book-form label {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container .update-book-form input {
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+  }
+  
+  .container .add-user-form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -5rem;
+  }
+  .container .add-user-form label {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container .add-user-form input {
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
   }
   

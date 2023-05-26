@@ -11,7 +11,6 @@ function GetUser() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showUpdateUserMessage, setShowUpdateUserMessage] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [showDeleteUserMessage, setShowDeleteUserMessage] = useState(false);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
@@ -22,6 +21,21 @@ function GetUser() {
   const [password, setPassword] = useState('');
   const [admin, setAdmin] = useState(false);
   
+
+  const handleClose = (event) => {
+    // Check if the click is on the close button or outside the inner-box div
+    if (
+      event.target.className === 'overlay' ||
+      event.target.className === 'close'  
+      // event.target.className === 'add-button-final'  ||
+      // event.target.className === 'edit-button-final'
+    ) {
+      setShowAddUserModal(false);
+      setShowEditUserModal(false);
+    }
+  };
+
+
   const handleSearch = () => {
     const filteredUsers = users.filter(
       (user) =>
@@ -121,8 +135,9 @@ function GetUser() {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <div className="search-bar">
+    <div className='container'>
+      <div className="search-add-container">
+        <div className="search-bar-container">
           <input
             type="text"
             placeholder="Search by ID or username..."
@@ -131,12 +146,14 @@ function GetUser() {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
-        <div className="add-book-button-container">
-          <button className="add-book-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
+        <div className="add-user-button-container">
+          <button className="add-user-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
             Add User
           </button>
         </div>
+      </div>
         {error && <p className="error">{error}</p>}
+      <div className='table-container'>
         <table>
           <thead>
             <tr>
@@ -158,19 +175,23 @@ function GetUser() {
                 <td>{user.email}</td>
                 <td>{user.password}</td>
                 <td>{user.admin ? 'Yes' : 'No'}</td>
-                <td>
-                  <button onClick={() => handleEditButtonClick()}>Edit</button>
-                  <button onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
+                <td className='action-buttons'>
+                  <button className='edit-button' onClick={() => handleEditButtonClick()}>Edit</button>
+                  <button className='delete-button' onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
+      </div>
         {showEditUserModal && (
-          <div className="edit-user-modal">
+        <div className="overlay" onClick={handleClose}>
+         <div className="overlay-inner">
+          <button className="close" onClick={handleClose}><i className="fas fa-times"></i></button>
+          <div className="inner-box">   
+          
             <h2>Update User</h2>
-            <form onSubmit={handleUpdateUser}>
+            <form className='update-book-form' onSubmit={handleUpdateUser}>
               <label>
                 User ID:
                 <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
@@ -195,8 +216,10 @@ function GetUser() {
                 Admin:
                 <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
               </label>
-              <button type="submit">Update User</button>
+              <button className ='edit-button-final' type="submit">Update User</button>
             </form>
+          </div>
+          </div>
           </div>
         )}
         
@@ -207,9 +230,12 @@ function GetUser() {
         )}
 
         {showAddUserModal && (
-          <div>
+          <div className="overlay" onClick={handleClose}>
+          <div className="overlay-inner">
+           <button className="close" onClick={handleClose}><i className="fas fa-times"></i></button>
+           <div className="inner-box">   
             <h2>Add User</h2>
-            <form onSubmit={handleAddUser}>
+            <form className='add-user-form' onSubmit={handleAddUser}>
               <label>
                 User Id:
                 <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
@@ -234,10 +260,13 @@ function GetUser() {
                 Admin:
                 <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
               </label>
-              <button type="submit">Add User</button>
+              <button className ='add-button-final' type="submit">Add User</button>
             </form>
           </div>
+        </div>
+        </div>
         )}
+      
       </div>
     </>
   );

@@ -1,0 +1,20 @@
+* THE FIELDS OF MODEL CLASSES ARE THE FIELD OF A TABLE IN THE DATABASE
+* IT IS IMPORTANT THAT THE NAME & TYPE OF FIELD IN MODEL CLASS ARE SAME AS THOSE IN FIELD IN DATABASE DOCUMENT
+
+Model classes in Spring Data MongoDB represent the data model of an application. They define the structure and behavior
+ of the entities being stored in a MongoDB database.
+
+A model class typically has instance variables that represent the attributes of the entity being modeled, along with
+ getters and setters to access and modify those attributes. The class may also have additional methods that provide
+ business logic or perform calculations based on the data stored in the model.
+
+When you define a model class in Spring Data MongoDB, you are essentially defining the schema for the corresponding
+ MongoDB collection. The fields in the model class correspond to the fields in the MongoDB document, and the types of
+ the fields in the model class determine the data types of the corresponding fields in the document.
+
+Spring Data MongoDB uses reflection to map the fields in the model class to the fields in the MongoDB document, so
+ it is important that the names and types of the fields in the model class match the names and types of the fields in
+  the document.
+
+Overall, model classes play an important role in the Spring Data MongoDB framework by providing a structured and
+object-oriented approach to working with MongoDB data.
