@@ -1,19 +1,18 @@
-/* userTable.css */
+userTable.css
 
-.container {
+.get-user-container {
   margin-top: -2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 .search-add-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    margin-top: 5rem;
   }
 
-  .search-add-container .search-bar {
+  .search-add-container .search-bar-container {
+    margin-top: 1rem;
     margin-left: -1rem;
-    margin-bottom: 1em;
   }
   
   .search-add-container .search-bar-container input{
@@ -40,6 +39,9 @@
     color: white;
     text-align: center;
     border-radius: 4px;
+}
+.search-add-container .search-bar-container button:hover{
+  cursor: pointer;
 }
   
   .add-user-button-container {
@@ -103,11 +105,12 @@
   }
 
   .table-container {
-    margin-top: -3rem;
+    margin-top: 0rem;
+    margin-left: 15rem;
   }
   
   table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
   }
   
@@ -135,7 +138,7 @@
   }
   
   @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Poppins:wght@300&display=swap');
-  .container .overlay{
+  .get-user-container .overlay{
       height: 100%;
       width: 100%;
       position: fixed;
@@ -145,13 +148,13 @@
       right: 0;
       background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
   }
-  .container .overlay-inner{
+  .get-user-container .overlay-inner{
       background: white;
       border-radius: 0.5rem;
-      width: 32em;
+      width: 35em;
       /* max-height: fit-content; */
       margin-top: 3.8rem;
-      height: 28em;
+      height: 30em;
       padding: 1.5rem;
       position: fixed;
       overflow: auto;
@@ -163,7 +166,7 @@
       display: flex;
       flex-direction: column;
   }
-  .container .overlay-inner .close{
+  .get-user-container .overlay-inner .close{
       position: absolute;
       top:1rem;
       right: 1rem;
@@ -174,48 +177,51 @@
       
   }
  
+ .get-user-container .overlay-inner .inner-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ }
 
-
-  .container .update-book-form{
+  /* .container .update-book-form{
     display: flex;
     flex-direction: column;
-    margin-bottom: -5rem;
-  }
-  .container .update-book-form label {
+  } */
+  .get-user-container .update-book-form label {
     margin-top: 1em;
     display: flex;
     flex-direction: column;
   }
   
-  .container .update-book-form input {
+  .get-user-container .update-book-form input {
     text-indent: 0.5rem;
     text-align: start;
     outline: 0;
     border: none;
-    height: 2.5em;
+    height: 1.5em;
     border-radius: 5px;
     margin-right: 10rem;
     border-width: 1px;
     box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
   }
   
-  .container .add-user-form{
+  .get-user-container .add-user-form{
     display: flex;
     flex-direction: column;
     margin-bottom: -5rem;
   }
-  .container .add-user-form label {
+  .get-user-container .add-user-form label {
     margin-top: 1em;
     display: flex;
     flex-direction: column;
   }
   
-  .container .add-user-form input {
+  .get-user-container .add-user-form input {
     text-indent: 0.5rem;
     text-align: start;
     outline: 0;
     border: none;
-    height: 2.5em;
+    height: 1.5em;
     border-radius: 5px;
     margin-right: 10rem;
     border-width: 1px;

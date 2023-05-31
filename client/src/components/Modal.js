@@ -128,4 +128,4 @@ const Modal = ({ setShowAddUserModal, showAddUserModal, setShowEditUserModal, sh
  }
 };
 
-export default BookDescriptionModal;
+export default Modal;

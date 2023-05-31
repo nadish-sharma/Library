@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import './GetUserStyles.css';
 import UpdateUser from './UpdateUser';
 
-function GetUser() {
+function IssueBooks() {
   const [userId, setUserId] = useState('');
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
@@ -14,6 +14,7 @@ function GetUser() {
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [showDeleteUserMessage, setShowDeleteUserMessage] = useState(false);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [books, setBooks] = useState([]);
   
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -46,101 +47,59 @@ function GetUser() {
     setUsers(filteredUsers);
   };
   
-  const handleEditButtonClick = () => {
-    setShowEditUserModal(true);
-    setShowAddUserModal(false);
-    setShowDeleteUserMessage(false);
-  };
-  
-  const handleUpdateUser = () => {
-    axios
-      .put(`http://localhost:8080/api/user/${userId}`, {
-        userId: userId,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        admin: admin
-      })
-      .then((response) => {
-        console.log(response.data);
-        setUsers((prevUsers) =>
-          prevUsers.map((u) => (u.userId === user.userId ? response.data : u))
-        );
-        setShowEditUserModal(false);
-      })
-      .catch((error) => console.error(error));
-  };
-  
-  const handleAddUser = (e) => {
-    e.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/user`, {
-        userId: userId,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        admin: admin
-      })
-      .then((response) => {
-        console.log(response.data);
-        setUsers((prevUsers) => [...prevUsers, response.data]);
-        setUser(response.data);
-        setUserId('');
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setAdmin(false);
-        setShowAddUserModal(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError("User not added!");
-      });
-  };
-  
-  const handleDeleteButtonClick = (userId) => {
-    axios
-      .delete(`http://localhost:8080/api/user/${userId}`)
-      .then(() => {
-        console.log(`User with ID ${userId} deleted.`);
-        setUsers((prevUsers) => prevUsers.filter((user) => user.userId !== userId));
-        setShowDeleteUserMessage(true);
-      })
-      .catch((error) => console.error(error));
-  };
-  
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    handleGetAllUsers();
-  }, []);
-  
-  const handleGetAllUsers = () => {
-    axios
-      .get('http://localhost:8080/api/user')
-      .then((response) => {
-        setUsers(response.data);
-        setError(null);
+    // Fetch book data
+    axios.get('http://localhost:8080/api/books/issued')
+      .then(response => {
+        const bookData = response.data;
+        // Fetch user data
+        axios.get('http://localhost:8080/api/users/borrowers')
+          .then(response => {
+            const userData = response.data;
+            // Combine book and user data
+            const combinedData = combineData(bookData, userData);
+            setData(combinedData);
+          })
+          .catch(error => {
+            console.error('Error fetching user data:', error);
+          });
       })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          setError('Please enter your User ID');
-          setUsers([]);
-          console.log(error);
-        }
+      .catch(error => {
+        console.error('Error fetching book data:', error);
       });
+  }, []);
+
+  const combineData = (bookData, userData) => {
+    // Combine book and user data based on matching book ID within the borrowedBooks list
+    const combinedData = userData.map(user => {
+      const borrowedBooks = user.borrowedBooks.map(bookId => {
+        const book = bookData.find(book => book.bookId === bookId);
+        return book ? book : null;
+      });
+      return {
+        ...user,
+        borrowedBooks,
+      };
+    });
+    return combinedData;
   };
+  
+  // Usage:
+  const combinedData = combineData(bookData, userData);
+  
+
   
   return (
     <>
       <Navbar />
-    <div className='get-user-container'>
+    <div className='container'>
       <div className="search-add-container">
         <div className="search-bar-container">
           <input
             type="text"
-            placeholder="Search by ID or username..."
+            placeholder="Search by book or user..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -148,7 +107,7 @@ function GetUser() {
         </div>
         <div className="add-user-button-container">
           <button className="add-user-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
-            Add User
+            Issue Book
           </button>
         </div>
       </div>
@@ -157,24 +116,26 @@ function GetUser() {
         <table>
           <thead>
             <tr>
-              <th>User ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Admin</th>
+              <th>Serial no.</th>
+              <th>Book Title</th>
+              <th>Book ID</th>
+              <th>User</th>
+              <th>Issue Date</th>
+              <th>Expected Return</th>
+              <th>Return Date</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.userId}>
-                <td>{user.userId}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.password}</td>
-                <td>{user.admin ? 'Yes' : 'No'}</td>
+            {books.map((book) => (
+              <tr key={book.bookId}>
+                <td>{book.bookId}</td>
+                <td>{book.title}</td>
+                <td>{book.bookId}</td>
+                <td>{book.email}</td>
+                <td>{book.password}</td>
+                <td>{book.admin ? 'Yes' : 'No'}</td>
                 <td className='action-buttons'>
                   <button className='edit-button' onClick={() => handleEditButtonClick()}>Edit</button>
                   <button className='delete-button' onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
@@ -272,4 +233,4 @@ function GetUser() {
   );
 };
 
-export default GetUser;
+export default IssueBooks;

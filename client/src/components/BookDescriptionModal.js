@@ -16,6 +16,8 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
   let publishedDate;
   let description;
   let id;
+  let isAvailable;
+  let isLibrary;
   let saleability;
   let thumbnail;
   let buy;
@@ -51,6 +53,8 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
     description = book.description;
     saleability = book.saleability;
     id = book.id;
+    isAvailable = book.isAvailable;
+    isLibrary = book.isLibrary;
     if(book.amount!= null && book.currency!=null) {
       amount = book.amount;
       currency = book.currency;

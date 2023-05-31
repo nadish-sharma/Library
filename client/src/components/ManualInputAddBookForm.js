@@ -13,8 +13,8 @@ function ManualInputAddBookForm () {
   const [publication, setPublication] = useState('');
   const [isbn, setIsbn] = useState('')
   const [publishedDate, setPublishedDate] = useState('');
-  const [isAvailable, setIsAvailable] = useState('');
-  const [isLibraryBook, setIsLibraryBook] = useState('');
+  const [isAvailable, setIsAvailable] = useState(false);
+  const [isLibraryBook, setIsLibraryBook] = useState(false);
   const [amount, setAmount] = useState('FREE');
   const [thumbnail,setThumbnail] = useState(bookImg);
   const [bookCount, setBookCount] = useState(0);
@@ -24,6 +24,8 @@ function ManualInputAddBookForm () {
 
     const handleSubmit = (e) => {
         setBookCount(bookCount + 1);
+        console.log("isLibraryBook:", isLibraryBook);
+        console.log("isAvailable:", isAvailable);
         e.preventDefault();
         axios.post(`http://localhost:8080/api/book`, {
           bookId: bookId,
@@ -33,8 +35,8 @@ function ManualInputAddBookForm () {
           publication: publication,
           publishedDate: publishedDate,
           isbn: isbn,
-          isAvailable: isAvailable,
-          isLibraryBook: isLibraryBook,
+          available: isAvailable,
+          libraryBook: isLibraryBook,
           amount: "FREE",
           bookCount: bookCount,
           thumbnail: bookImg
@@ -101,7 +103,11 @@ function ManualInputAddBookForm () {
                     </div>
                     <div className="manual-input-checkbox-content">
                         <span>Availability: *</span>
-                        <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
+                        <input
+                          type="checkbox"
+                          checked={isAvailable}
+                          onChange={e => setIsAvailable(e.target.checked)}
+                        />
                     </div>    
               </div>
 
@@ -118,7 +124,7 @@ function ManualInputAddBookForm () {
               <p>title: {book.title}</p>
               <p>author name: {book.authorName}</p>
               <p>description: {book.description}</p>
-              <p>availability: {book.isAvailable ? 'Yes' : 'No'}</p>
+              <p>availability: {book.available ? 'Yes' : 'No'}</p>
             </div>
         )}
         </>

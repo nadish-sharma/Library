@@ -19,6 +19,14 @@ public class BookService {
     public List<Book> getAllBooks() {
         return BookRepository.findAll();
     }
+
+    public List<Book> getUnavailableBooks() {
+        return BookRepository.findByIsAvailable(false);
+    }
+    public List<Book> getAvailableBooks() {
+        return BookRepository.findByIsAvailable(true);
+    }
+//    public List<Book> getAllAvailableBooks(Boolean isAvailable) {return BookRepository.findAvailableBooks(isAvailable);}
     //    public Optional<Book> singleBook(ObjectId id) {
 //        return BookRepository.findById(id);
 //    }

@@ -33,6 +33,8 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   let authorName;
   let id;
   let saleability;
+  let isAvailable;
+  let isLibraryBook;
   let thumbnail;
   let amount;
   let currency;
@@ -50,8 +52,8 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   console.log("bookArray:", bookArray);
   const book0 = bookArray && bookArray.length > 0 ? bookArray[0] : null;
   // console.log("book selected:", book0);
-  const isLibraryBook = book0 && book0.libraryBook ? book0.libraryBook : false;
-  console.log("isLibraryBook:", isLibraryBook);
+  // const isLibraryBook = book0 && book0.libraryBook ? book0.libraryBook : false;
+  // console.log("isLibraryBook:", isLibraryBook);
 
   
   if (bookData != null) {
@@ -83,6 +85,8 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
       if (book && book.libraryBook) {
         bookDataStructure.push({
           amount: book.amount,
+          isAvailable: book.isAvailable,
+          isLibraryBook: book.isLibraryBook,
           currency: book.currency,
           title: book.title,
           authorName: Array.isArray(book.authorName) ? book.authorName.join(', ') : String(book.authorName),
@@ -115,6 +119,8 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
             book.volumeInfo.publisher.join(', ') : book.volumeInfo.publisher || '',
           publishedDate: book.volumeInfo.publishedDate || '',
           amount: amount,
+          isLibraryBook: false,
+          isAvailable: true,
           currency: currency,
           book : book,
           preview : book.volumeInfo.previewLink || '',

@@ -40,6 +40,27 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/issued")
+    public ResponseEntity<List<Book>> getUnavailableBooks() {
+        List<Book> books = bookService.getUnavailableBooks();
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Book>> getAvailableBooks() {
+        List<Book> books = bookService.getAvailableBooks();
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
         List<Book> books = bookService.getAllBooks();

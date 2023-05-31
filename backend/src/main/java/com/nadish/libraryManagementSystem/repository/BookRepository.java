@@ -21,6 +21,9 @@ public interface BookRepository extends MongoRepository<Book, ObjectId> {
     void deleteByBookId(String bookId);
 
     Optional<Book> findBooksByBookId(String bookId);
+//
+    List<Book> findByIsAvailable(boolean isAvailable);
+//    List<Book> findAvailableBooks(Boolean isAvailable);
 
     //User  findByIsbn(String isbn);
 }

@@ -35,6 +35,8 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
     setPublication(bookItem.publication);
     setPublishedDate(bookItem.publishedDate);
     setDescription(bookItem.description);
+    setAmount(bookItem.amount);
+    setCurrency(bookItem.currency);
     setIsLibraryBook(bookItem.isLibraryBook);
     setIsAvailable(bookItem.isAvailable);
     setThumbnail(bookItem.thumbnail);
@@ -54,15 +56,15 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
     setThumbnail(file);
   };
 
-  console.log({ID})
+ 
   const handleUpdateBook = () => {
-    console.log({ID})
+    console.log({bookId})
       if(bookItem.thumbnail==null) {
         setThumbnail(bookImg);
       } else{
         setThumbnail(bookItem.thumbnail);
       }
-    axios.put(`http://localhost:8080/api/book/${ID}`, {
+    axios.put(`http://localhost:8080/api/book/${bookId}`, {
       bookId: bookId,
       title: title,
       authorName: authorName,
@@ -70,6 +72,8 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
       publication: publication,
       publishedDate: publishedDate,
       isbn: isbn,
+      amount: amount,
+      currency: currency,
       isAvailable: isAvailable,
       isLibraryBook: isLibraryBook,
       amount: amount,

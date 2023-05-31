@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 
 @Document(collection = "book")
 @Data
@@ -36,12 +38,18 @@ private String publishedDate;
 //    @NotBlank(message = "This field can't be empty")
     private String description;
 
-    private boolean isLibraryBook = true;
+    private boolean isLibraryBook;
 //    @NotBlank(message = "This field can't be empty")
     private String amount = "FREE";
     private String currency;
     private String saleability;
     private Object thumbnail;
+
+    private String issuedTo;
+    private Date issueDate;
+    private Date expectedReturnDate;
+    private Date returnDate;
+    private String status;
 }
 
 

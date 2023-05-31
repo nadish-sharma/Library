@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 
 @Document(collection = "user")
 @Data
@@ -30,6 +32,9 @@ public class User {
     private String password;
     @NotBlank(message = "This field can't be empty")
     private boolean isAdmin;
+    private boolean isBorrower;
+    private List<Book> borrowedBooks;
+    private double fineAmount;
 }
 
 
