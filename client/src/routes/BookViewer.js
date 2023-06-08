@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
+import '../routes/BookViewerStyles.css';
 
 
 
@@ -20,18 +21,18 @@ function BookViewer({ bookData, id, show }) {
     viewer.load(`${id}`);
   }, [id]);
 
-  const handleBackClick = () => {
-    setBackClickedStatus(true);
-    // history.push("/"); // Go back to the previous page (search results)
-  };
+  // const handleBackClick = () => {
+  //   setBackClickedStatus(true);
+  //   // history.push("/"); // Go back to the previous page (search results)
+  // };
 
   return (
     <>
       {!backClickedStatus ? (
         <>
         <div className="viewer-master">
-          <div className="canvas" id="viewerCanvas" style={{ width: '50rem', height: '50rem', alignContent: 'center' }}></div>
-          <div><button onClick={handleBackClick}>Back</button></div>
+          <div className="canvas" id="viewerCanvas"></div>
+          {/* <div><button onClick={handleBackClick}>Back</button></div> */}
         </div>
         </>
       ) : (

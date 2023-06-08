@@ -112,15 +112,15 @@ function LoginForm() {
       <h1>Login Failed</h1>
     )}
     {(showAdminDashboard || showUserDashboard) && 
-    (<Navbar 
-            setShowAdminDashboard={setShowAdminDashboard}
-            showAdminDashboard={showAdminDashboard}
-            setShowUserDashboard={setShowUserDashboard}
-            showUserDashboard={showUserDashboard}
-            setIsAdmin={setIsAdmin}
-            setEmail={setEmail}
-            setPassword={setPassword}
-            />
+    (<Navbar
+      setShowAdminDashboard={setShowAdminDashboard} // Pass the function as a prop
+      showAdminDashboard={showAdminDashboard}
+      setShowUserDashboard={setShowUserDashboard}
+      showUserDashboard={showUserDashboard}
+      setIsAdmin={setIsAdmin}
+      setEmail={setEmail}
+      setPassword={setPassword}
+    />
     )}
     </>
   );

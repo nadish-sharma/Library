@@ -389,9 +389,13 @@ function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboa
         setSearch(null);
       }
     }
-      
+   
     return (
+     
         <>
+        {showAdminDashboard && (
+
+        
         <div className="master">   
             <nav className="NavbarItems">
                 <div className="website-logo"></div>               
@@ -488,6 +492,7 @@ function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboa
              
             
         </div> 
+        )}
     </>
 
     );

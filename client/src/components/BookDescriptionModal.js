@@ -138,8 +138,6 @@ const BookDescriptionModal = ({ bookData, show, showEditModal, book, onClose }) 
       </div>
       {showViewer && ( 
                       <div className="embedded-viewer">
-                          {/* <Navbar/> */}
-                          {/* <Home show={showViewer}/> */}
                           <BookViewer bookData={book} id={book.bookId} show={showViewer} />
                       </div>
 
