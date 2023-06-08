@@ -4,12 +4,13 @@ import React, {useRef, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import 'font-awesome/css/font-awesome.min.css';
 import Card from "./Card";
+import logoImg from '../images/logo-img.png';
 import SearchFiltersModal from "./SearchFilterModal";
 import {BookItemsCRUD} from "./BookItemsCRUD";
 
 
 
-function Navbar () {
+function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboard, showUserDashboard, setIsAdmin, setEmail, setPassword}) {
 
     //We made use of useEffect hook to get updated state value//
     //https://stackoverflow.com/questions/61054275/usestate-with-boolean-value-in-react//
@@ -31,6 +32,7 @@ function Navbar () {
     const [filter2, setFilter2] = useState("");
     const [filterNumber, setFilterNumber] = useState(0);
     const [bookComponent, setBookComponent] = useState("false");
+    // const [hideSearch, setHideSearch] = useState(false);
     let inputRef = useRef(null);
 
 
@@ -62,31 +64,31 @@ function Navbar () {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(filterNumber==0) {
+        if(filterNumber===0) {
           handleGetBooks();
           setShowFilters(false);
         }
-        else if(filterNumber==1) {
+        else if(filterNumber===1) {
             handleGetBookLibrary();
             setShowFilters(false);   
         }
-        else if(filterNumber==2) {
+        else if(filterNumber===2) {
             handleGetBookOnline();
             setShowFilters(false);
         }
-        else if(filterNumber==3 ){
+        else if(filterNumber===3 ){
             handleGetFreeEbook();
             setShowFilters(false);
         }
-        else if(filterNumber==4) {
+        else if(filterNumber===4) {
             handleGetAllLibraryBooks();
             setShowFilters(false);
         }
-        else if(filterNumber==5) {
+        else if(filterNumber===5) {
             handleGetBooksFromEverywhere();
             setShowFilters(false);
         }
-        else if(filterNumber==6) {
+        else if(filterNumber===6) {
             handleGetFreeBooksFromEverywhere();
             setShowFilters(false);
         }
@@ -97,8 +99,9 @@ function Navbar () {
         console.log({filterNumber});
 
 
-          };      // Call your search function with the search query as input
-    // const [loginStatus, setLogin] = useState(false);
+          }    // Call your search function with the search query as input
+   
+    
     const clickHandler = () => {
         setClicked(current=> !current)
     }
@@ -253,7 +256,7 @@ function Navbar () {
 
       const handleGetAllLibraryBooks = async () => {
        
-        {console.log(search);}
+        {console.log(search)}
         try {
             const response = await axios.get(`${url2}`);
             setBookData(response.data);
@@ -286,7 +289,7 @@ function Navbar () {
                 setSearch('');
                 console.log(errorBook);
             }
-        });
+        })
     }
     const handleGetBooksFromEverywhere = async () => {
       const urlGoogle = `${url}${search}${filter}`;
@@ -392,49 +395,76 @@ function Navbar () {
         <div className="master">   
             <nav className="NavbarItems">
                 <div className="website-logo"></div>               
-                  <Link to="/" onClick={() =>{ handleLogoClick(logoClickedStatus); setSearch('');}}>
-                      <h1 className="navbar-logo">
-                          LibStack
-                      </h1>
+                  <Link to="/home" onClick={() =>{ handleLogoClick(logoClickedStatus); setSearch('');}}>
+                      <img className="navbar-logo" src={logoImg} alt='LibStack'/>
                       {/* <i className="fa-solid fa-book-medical"></i> */}
                   </Link>
                 <div/>
 
-                <form className="search" onSubmit={(e) => {handleSubmit(e); setLogoClickedStatus(false);}}>
+                
+                  <form className="search" onSubmit={(e) => {handleSubmit(e); setLogoClickedStatus(false);}}>
                     <button type="submit">
-                        <i className="fas fa-search"></i>
+                      <i className="fas fa-search"></i>
                     </button>
-                    <input onClick={() => setShowFilters(true)}
-                        ref={inputRef}
-                        type="text"
-                        placeholder={placeholderValue}
-                        value={search}
-                        
-                        onChange={(e) => setSearch(e.target.value)}
+                    <input
+                      onClick={() => setShowFilters(true)}
+                      ref={inputRef}
+                      type="text"
+                      placeholder={placeholderValue}
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
                     />       
-                </form>
+                  </form>
+             
 
                 <div className="menu-icons" onClick={clickHandler}>
                     <i className={clickedStatus ? "fas fa-times" : "fas fa-bars"} ></i>
                 </div>
 
                 <ul className={clickedStatus ? "navbar-menu active" : "navbar-menu" }>
-                        {BookItemsCRUD.map((item, index) => {
-                        return (
-                        <li key={index}>
-                          {/* <div className = {item.cName} onClick={(e)=> setBookComponent(true)}> */}
+                {BookItemsCRUD.map((item, index) => {
+                  // Check if showAdminDashboard is true and the item is for admins
+                  if (showAdminDashboard || item.admin) {
+                    return (
+                      <li key={index}>
                         <Link className={item.cName} to={item.url}>
-                            <i  className={item.icon}></i>{item.title}
+                          <i className={item.icon}></i>
+                          {item.title}
                         </Link>
-                        {/* </div> */}
-                    </li>
+                      </li>
                     );
+                  }
+                  // Check if showUserDashboard is true and the item is for users
+                  if (showUserDashboard || item.user) {
+                    return (
+                      <li key={index}>
+                        <Link className={item.cName} to={item.url}>
+                          <i className={item.icon}></i>
+                          {item.title}
+                        </Link>
+                      </li>
+                    );
+                  }
+                  // Exclude items that don't match the current dashboard mode
+                  return null;
                 })}
-                    <Link to="/login"><button className="navbar-links-mobile">Sign In</button></Link>
+               
+                  <Link to="/">
+                    <button className="navbar-links-mobile" 
+                      onClick={()=>
+                        {setShowAdminDashboard(false); 
+                        setShowUserDashboard(false)
+                        setIsAdmin(false);
+                        setEmail('');
+                        setPassword('');
+                        }}
+                    > Sign Out</button>
+                  </Link>
+
                 </ul>
             </nav>
 
-            {console.log({showFilters})};
+            {console.log({showFilters})}
 
             <div className="filterModal">
                 {showFilters && <SearchFiltersModal  

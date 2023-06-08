@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,7 +20,7 @@ public class Book {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private ObjectId ID;
 //    @NotBlank(message = "This field can't be empty")
-    private String id;
+    private ObjectId id;
     private String bookId;
 //    @NotBlank(message = "This field can't be empty")
     private String authorName;
@@ -34,11 +33,11 @@ private String publishedDate;
     //    @NotBlank(message = "This field can't be empty")
     private String isbn;
 //    @NotBlank(message = "This field can't be empty")
-    private boolean isAvailable;
+    private boolean available;
 //    @NotBlank(message = "This field can't be empty")
     private String description;
 
-    private boolean isLibraryBook;
+    private boolean libraryBook = true;
 //    @NotBlank(message = "This field can't be empty")
     private String amount = "FREE";
     private String currency;
@@ -50,6 +49,8 @@ private String publishedDate;
     private Date expectedReturnDate;
     private Date returnDate;
     private String status;
+
+
 }
 
 

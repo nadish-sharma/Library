@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import { useEffect } from 'react';
 import './GetUserStyles.css';
 import UpdateUser from './UpdateUser';
+import IssueBooks from './IssueBooksModal';
 
 function GetUser() {
   const [userId, setUserId] = useState('');
@@ -14,6 +15,7 @@ function GetUser() {
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [showDeleteUserMessage, setShowDeleteUserMessage] = useState(false);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+
   
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -36,7 +38,10 @@ function GetUser() {
   };
 
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent form submission
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
     const filteredUsers = users.filter(
       (user) =>
         user.userId.includes(searchTerm) ||
@@ -46,10 +51,15 @@ function GetUser() {
     setUsers(filteredUsers);
   };
   
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = (user) => {
     setShowEditUserModal(true);
     setShowAddUserModal(false);
     setShowDeleteUserMessage(false);
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setEmail(user.email);
+    setPassword(user.password);
+    setAdmin(user.admin);
   };
   
   const handleUpdateUser = () => {
@@ -138,13 +148,15 @@ function GetUser() {
     <div className='get-user-container'>
       <div className="search-add-container">
         <div className="search-bar-container">
-          <input
-            type="text"
-            placeholder="Search by ID or username..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search by ID or username..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type='submit'>Search</button>
+          </form>
         </div>
         <div className="add-user-button-container">
           <button className="add-user-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
@@ -167,21 +179,70 @@ function GetUser() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.userId}>
-                <td>{user.userId}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.password}</td>
-                <td>{user.admin ? 'Yes' : 'No'}</td>
-                <td className='action-buttons'>
-                  <button className='edit-button' onClick={() => handleEditButtonClick()}>Edit</button>
-                  <button className='delete-button' onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {searchTerm === ''
+    ? users.map((user) => (
+        <tr key={user.userId}>
+          <td>{user.userId}</td>
+          <td>{user.firstName}</td>
+          <td>{user.lastName}</td>
+          <td>{user.email}</td>
+          <td>{user.password}</td>
+          <td>{user.admin ? 'Yes' : 'No'}</td>
+          <td className='action-buttons'>
+            <button
+              className='edit-button'
+              onClick={() => {
+                handleEditButtonClick(user);
+                setUserId(user.userId);
+              }}
+            >
+              Edit
+            </button>
+            <button
+              className='delete-button'
+              onClick={() => handleDeleteButtonClick(user.userId)}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))
+    : users
+        .filter(
+          (user) =>
+            user.userId.includes(searchTerm) ||
+            user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map((user) => (
+          <tr key={user.userId}>
+            <td>{user.userId}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
+            <td>{user.email}</td>
+            <td>{user.password}</td>
+            <td>{user.admin ? 'Yes' : 'No'}</td>
+            <td className='action-buttons'>
+              <button
+                className='edit-button'
+                onClick={() => {
+                  handleEditButtonClick(user);
+                  setUserId(user.userId);
+                }}
+              >
+                Edit
+              </button>
+              <button
+                className='delete-button'
+                onClick={() => handleDeleteButtonClick(user.userId)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+</tbody>
+
         </table>
       </div>
         {showEditUserModal && (
@@ -192,10 +253,10 @@ function GetUser() {
           
             <h2>Update User</h2>
             <form className='update-book-form' onSubmit={handleUpdateUser}>
-              <label>
+              {/* <label>
                 User ID:
                 <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
-              </label>
+              </label> */}
               <label>
                 First Name:
                 <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
@@ -222,12 +283,7 @@ function GetUser() {
           </div>
           </div>
         )}
-        
-        {showDeleteUserMessage && (
-          <div>
-            <p>User deleted successfully</p>
-          </div>
-        )}
+
 
         {showAddUserModal && (
           <div className="overlay" onClick={handleClose}>

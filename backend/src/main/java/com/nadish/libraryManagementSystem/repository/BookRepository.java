@@ -19,10 +19,10 @@ public interface BookRepository extends MongoRepository<Book, ObjectId> {
 
     Optional<Book> findBookByIsbn(String isbn);
     void deleteByBookId(String bookId);
+//
+    List<Book> findByAvailable(boolean available);
 
     Optional<Book> findBooksByBookId(String bookId);
-//
-    List<Book> findByIsAvailable(boolean isAvailable);
 //    List<Book> findAvailableBooks(Boolean isAvailable);
 
     //User  findByIsbn(String isbn);

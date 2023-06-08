@@ -11,7 +11,10 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   const [loading, setLoading] = useState(true); // Add loading state
   const [isHovered, setIsHovered] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [ID, setID] = useState('')
+  const [ID, setID] = useState('');
+  const [returnDate, setReturnDate] = useState(new Date().toISOString().slice(0, 10));
+  const [issueDate, setIssueDate] = useState(new Date().toISOString().slice(0, 10));
+  const [expectedReturnDate, setExpectedReturnDate] = useState(new Date().toISOString().slice(0, 10));
 
 
   const handleEditModal = () => {
@@ -33,14 +36,15 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   let authorName;
   let id;
   let saleability;
-  let isAvailable;
-  let isLibraryBook;
+  let available;
+  let libraryBook;
   let thumbnail;
   let amount;
   let currency;
   let description;
   let publisher;
   let publishedDate;
+  let status;
 
   //// USE SETDESCRIPTION TYPE METHODS IN THE .then AND SET THEM TO NULL OTHERWISE THE VALUES CARRY FORWARD THE NEXT TIME//
 
@@ -85,12 +89,12 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
       if (book && book.libraryBook) {
         bookDataStructure.push({
           amount: book.amount,
-          isAvailable: book.isAvailable,
-          isLibraryBook: book.isLibraryBook,
+          isAvailable: book.available,
+          libraryBook: book.libraryBook,
           currency: book.currency,
           title: book.title,
           authorName: Array.isArray(book.authorName) ? book.authorName.join(', ') : String(book.authorName),
-          id: book.bookId,
+          // id: book._id,
           bookId: book.bookId,
           saleability: book.saleability,
           thumbnail: thumbnail,
@@ -110,7 +114,7 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
           title: book.volumeInfo.title,
           authorName: Array.isArray(book.volumeInfo.authors) ? 
             book.volumeInfo.authors.join(', ') : book.volumeInfo.authors || '',
-          id: book.id,
+          // id: book.id,
           bookId: book.id,
           saleability: book.saleInfo.saleability,
           thumbnail: book.volumeInfo.imageLinks.thumbnail,
@@ -119,8 +123,13 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
             book.volumeInfo.publisher.join(', ') : book.volumeInfo.publisher || '',
           publishedDate: book.volumeInfo.publishedDate || '',
           amount: amount,
-          isLibraryBook: false,
-          isAvailable: true,
+          libraryBook: false,
+          available: true,
+          issueDate: issueDate,
+          expectedReturnDate: expectedReturnDate,
+          returnDate: returnDate,
+          issuedTo: '',
+          status:'',
           currency: currency,
           book : book,
           preview : book.volumeInfo.previewLink || '',
@@ -171,13 +180,15 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
           showEditModal={showEditModal}
           setShowEditModal={setShowEditModal}
           />}
+          {show && (
           <BookDescriptionModal
-            bookData={bookData} isLibraryBook={isLibraryBook}
+            bookData={bookData} libraryBook={libraryBook}
             show={show} book={bookItem}
             logoClickedStatus={logoClickedStatus}
             setLogoClickedStatus={setLogoClickedStatus}
             onClose={() => setShow(false)}
           />
+          )}
         </>
       );
     }

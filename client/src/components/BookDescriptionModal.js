@@ -6,7 +6,7 @@ import BookViewer from '../routes/BookViewer';
 import Home from '../routes/Home';
 import Navbar from './Navbar';
 
-const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, book, onClose }) => {
+const BookDescriptionModal = ({ bookData, show, showEditModal, book, onClose }) => {
   const [showViewer, setShowViewer] = useState(false);
   const [error, setError] = useState(null);
 
@@ -16,8 +16,9 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
   let publishedDate;
   let description;
   let id;
-  let isAvailable;
-  let isLibrary;
+  let bookId;
+  let available;
+  let libraryBook;
   let saleability;
   let thumbnail;
   let buy;
@@ -52,9 +53,10 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
     publishedDate = book.publishedDate;
     description = book.description;
     saleability = book.saleability;
-    id = book.id;
-    isAvailable = book.isAvailable;
-    isLibrary = book.isLibrary;
+    bookId = book.bookId;
+    // id = book.id;
+    available = true;
+    libraryBook = true;
     if(book.amount!= null && book.currency!=null) {
       amount = book.amount;
       currency = book.currency;
@@ -73,16 +75,16 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
       // setBookCount(bookCount + 1);
       event.preventDefault();
       axios.post(`http://localhost:8080/api/book`, {
-        id: book.id,
-        bookId: book.id,
+        // id: book.id,
+        bookId: book.bookId,
         title: book.title,
         authorName: book.authorName || [],
         description: book.description,
         publication: book.publication,
         publishedDate: book.publishedDate,
         // isbn: book.isbn,
-        isAvailable: book.isAvailable,
-        isLibraryBook: book.isLibraryBook,
+        available: available,
+        libraryBook: libraryBook,
         amount: book.amount,
         currency: book.currency,
         saleability: book.saleability,
@@ -138,7 +140,7 @@ const BookDescriptionModal = ({ bookData, isLibraryBook, show, showEditModal, bo
                       <div className="embedded-viewer">
                           {/* <Navbar/> */}
                           {/* <Home show={showViewer}/> */}
-                          <BookViewer bookData={book} id={book.id} show={showViewer} />
+                          <BookViewer bookData={book} id={book.bookId} show={showViewer} />
                       </div>
 
       )}

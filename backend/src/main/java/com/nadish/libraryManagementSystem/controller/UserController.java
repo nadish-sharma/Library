@@ -19,13 +19,19 @@ public class UserController {
     public ResponseEntity<List<User>> allUsers(){
         return new ResponseEntity<List<User>>(userService.allUsers(), HttpStatus.OK);
     }
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Optional<User>> singleUser(@PathVariable ObjectId id) {
-//        return new ResponseEntity<Optional<User>>(userService.singleUser(id), HttpStatus.OK);
-//    }
+
+    @GetMapping("/borrower/{borrower}")
+    public ResponseEntity<List<User>> allBorrowerUsers(@PathVariable boolean borrower) {
+       return new ResponseEntity<List<User>>(userService.getAllBorrowerUsers(borrower), HttpStatus.OK);
+    }
     @GetMapping("/{userId}")
     public ResponseEntity<Optional<User>> getSingleUser(@PathVariable String userId) {
         return new ResponseEntity<Optional<User>>(userService.getSingleUser(userId), HttpStatus.OK);
+    }
+    @GetMapping("/isAdmin/{isAdmin}")
+    public ResponseEntity<List<User>> getUsersByAdminStatus(@PathVariable boolean isAdmin) {
+        List<User> users = userService.getUsersByAdminStatus(isAdmin);
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
@@ -45,11 +51,8 @@ public class UserController {
     }
 
 
-    @GetMapping("/admin/{isAdmin}")
-    public ResponseEntity<List<User>> getUsersByAdminStatus(@PathVariable boolean isAdmin) {
-        List<User> users = userService.getUsersByAdminStatus(isAdmin);
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
+
+
 
 //    @GetMapping("/{email}")
 //    public ResponseEntity<Optional><User> getUserByEmail(@PathVariable String email) {

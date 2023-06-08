@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white;
-  /* background-image: url('./images/cat.jpg'); */
+   background-image: url('./images/login-page-background.jpg'); 
 }
 
 code {

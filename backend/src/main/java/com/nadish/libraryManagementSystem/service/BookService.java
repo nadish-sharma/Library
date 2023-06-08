@@ -21,10 +21,10 @@ public class BookService {
     }
 
     public List<Book> getUnavailableBooks() {
-        return BookRepository.findByIsAvailable(false);
+        return BookRepository.findByAvailable(false);
     }
     public List<Book> getAvailableBooks() {
-        return BookRepository.findByIsAvailable(true);
+        return BookRepository.findByAvailable(true);
     }
 //    public List<Book> getAllAvailableBooks(Boolean isAvailable) {return BookRepository.findAvailableBooks(isAvailable);}
     //    public Optional<Book> singleBook(ObjectId id) {
@@ -58,6 +58,10 @@ public class BookService {
             book.setAvailable(updatedBook.isAvailable());
             book.setLibraryBook(updatedBook.isLibraryBook());
             book.setThumbnail(updatedBook.getThumbnail());
+            book.setIssuedTo(updatedBook.getIssuedTo());
+            book.setIssueDate(updatedBook.getIssueDate());
+            book.setExpectedReturnDate(updatedBook.getExpectedReturnDate());
+            book.setStatus(updatedBook.getStatus());
 //            book.setPassword(updatedBook.getPassword());
             return BookRepository.save(book);
         } else {
@@ -65,7 +69,6 @@ public class BookService {
         }
 
     }
-
 //    public List<Book> getBooksByAdminStatus(boolean isAvailable) {
 //        return BookRepository.findByIsAvailable(isAvailable);
 //    }
@@ -73,4 +76,7 @@ public class BookService {
         return BookRepository.findBookByIsbn(isbn);
     }
 
+    public Optional<Book> getSingleBookBookId(String bookId) {
+        return BookRepository.findBooksByBookId(bookId);
+    }
 }

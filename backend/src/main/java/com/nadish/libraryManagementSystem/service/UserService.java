@@ -16,7 +16,11 @@ public class UserService {
     public List<User> allUsers() {
         return userRepository.findAll();
     }
-//    public Optional<User> singleUser(ObjectId id) {
+    public List<User> getAllBorrowerUsers(boolean borrower) {
+        return userRepository.findUserByBorrower(borrower);
+    }
+
+    //    public Optional<User> singleUser(ObjectId id) {
 //        return userRepository.findById(id);
 //    }
     public Optional<User> getSingleUser(String userId) {
@@ -38,6 +42,8 @@ public class UserService {
             user.setLastName(updatedUser.getLastName());
             user.setEmail(updatedUser.getEmail());
             user.setPassword(updatedUser.getPassword());
+            user.setBorrower(updatedUser.isBorrower());
+//            user.setBorrowedBooks(updatedUser.getBorrowedBooks());
             return userRepository.save(user);
         } else {
             throw new ResourceNotFoundException("User not found with userId: " + userId);
@@ -45,8 +51,10 @@ public class UserService {
 
     }
 
+
+
     public List<User> getUsersByAdminStatus(boolean isAdmin) {
-        return userRepository.findByIsAdmin(isAdmin);
+        return userRepository.findUserByIsAdmin(isAdmin);
     }
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);

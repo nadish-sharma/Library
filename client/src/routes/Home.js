@@ -13,8 +13,6 @@ function Home({show}) {
     <>
     {!show && (
         <><Navbar url={url}/>
-      
-       
         </>
     )}
         

@@ -12,9 +12,10 @@ import java.util.Optional;
 public interface UserRepository extends MongoRepository<User, ObjectId> {
    Optional<User> findUserByUserId(String userId);
    void deleteByUserId(String userId);
-   List<User> findByIsAdmin(boolean isAdmin);
+   List<User> findUserByIsAdmin(boolean isAdmin);
 
    User findByEmail(String email);
+   List<User> findUserByBorrower(boolean borrower);
 
    //User  findByIsbn(String isbn);
 }

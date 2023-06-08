@@ -48,7 +48,6 @@
   }
   .master .filterModal{
         top: 400px;
-        font-family:cursive;
         position:relative;
         z-index: 10;
   }
@@ -129,11 +128,9 @@
     align-items : center;
 }
 .navbar-logo {
-        color : #222;
-        font-size: 2.4em;
+        width: 12rem;
+        height: 5.5rem;
         cursor: pointer;
-        text-decoration: none;
-        font-weight : 700;
         padding : 0.7rem 1em;
         white-space: nowrap;
         margin: 0;

@@ -14,26 +14,19 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     private BookService bookService;
-//    @GetMapping
-//    public ResponseEntity<List<Book>> allBooks(){
-//        return new ResponseEntity<List<Book>>(bookService.getAllBooks(), HttpStatus.OK);
-//    }
-    //    @GetMapping("/{id}")
-//    public ResponseEntity<Optional<Book>> singleBook(@PathVariable ObjectId id) {
-//        return new ResponseEntity<Optional<Book>>(bookService.singleBook(id), HttpStatus.OK);
-//    }
-//    @GetMapping("/{bookId}")
-//    public ResponseEntity<Optional<Book>> getSingleBook(@PathVariable String bookId) {
-//        return new ResponseEntity<Optional<Book>>(bookService.getSingleBook(bookId), HttpStatus.OK);
-//    }
-//    @GetMapping("/{title}")
-//    public ResponseEntity<Optional<Book>> getSingleBookTitle(@PathVariable String title) {
-//        return new ResponseEntity<Optional<Book>>(bookService.getSingleBookTitle(title), HttpStatus.OK);
-//    }
 
     @GetMapping("/{title}")
     public ResponseEntity<List<Book>> getBooksByTitle(@PathVariable String title) {
         List<Book> books = bookService.getSingleBookTitle(title);
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/bookId/{bookId}")
+    public ResponseEntity<Optional<Book>> getBooksByBookId(@PathVariable String bookId) {
+        Optional<Book> books = bookService.getSingleBookBookId(bookId);
         if (!books.isEmpty()) {
             return ResponseEntity.ok(books);
         } else {
@@ -86,6 +79,7 @@ public class BookController {
         Book book = bookService.updateBook(bookId, updatedBook);
         return ResponseEntity.ok().body(book);
     }
+
 
 
 //    @GetMapping("/admin/{isAdmin}")

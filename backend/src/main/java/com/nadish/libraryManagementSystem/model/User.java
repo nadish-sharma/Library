@@ -32,9 +32,11 @@ public class User {
     private String password;
     @NotBlank(message = "This field can't be empty")
     private boolean isAdmin;
-    private boolean isBorrower;
-    private List<Book> borrowedBooks;
+    private boolean borrower;
+//    private List<Book> borrowedBooks;
     private double fineAmount;
+
+
 }
 
 

@@ -14,7 +14,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
   const [isbn, setIsbn] = useState('');
   const [showUpdatedBook, setShowUpdatedBook] = useState(false);
   const [publishedDate, setPublishedDate] = useState('');
-  const [isAvailable, setIsAvailable] = useState('');
+  const [available, setAvailable] = useState('');
   const [isLibraryBook, setIsLibraryBook] = useState('');
   const [amount, setAmount] = useState('FREE');
   const [currency, setCurrency] = useState('');
@@ -38,7 +38,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
     setAmount(bookItem.amount);
     setCurrency(bookItem.currency);
     setIsLibraryBook(bookItem.isLibraryBook);
-    setIsAvailable(bookItem.isAvailable);
+    setAvailable(bookItem.available);
     setThumbnail(bookItem.thumbnail);
   }, [bookItem]);
   
@@ -74,7 +74,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
       isbn: isbn,
       amount: amount,
       currency: currency,
-      isAvailable: isAvailable,
+      available: available,
       isLibraryBook: isLibraryBook,
       amount: amount,
       currency: currency,
@@ -89,7 +89,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
   return (
     <>
 
-    {!showEditModal &&  <Navbar />} 
+    {!showEditModal &&  <Navbar/>} 
 
     {showEditModal && 
     <div className="overlay-edit-book" onClick={handleClose}>
@@ -143,7 +143,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
         </label>
         <label>
           Availability:
-          <input type="checkbox" checked={bookItem.isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
+          <input type="checkbox" checked={bookItem.available} onChange={e => setAvailable(e.target.checked)} />
         </label>
         {/* <label>
           Thumbnail:
@@ -158,55 +158,6 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
       </div>
 }
 
-
-   
-    {/* <div style={{ marginTop: '12em' , alignContent:'center' }}>
-      <h1>Edit book with ID: `{ID}`</h1>
-      <h2>Update book</h2>
-      <form className='update-book-form' onSubmit={e => { e.preventDefault(); handleUpdateBook(); }}>
-        <label>
-          Book Id:
-          <input type="text"  value={bookId} onChange={e => setBookId(e.target.value)} />
-        </label>
-        <label>
-          Title:
-          <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-        </label>
-        <label>
-          Author Name:
-          <input type="text"  value={authorName} onChange={e => setAuthorName(e.target.value)} />
-        </label>
-        <label>
-          ISBN:
-          <input type="text"  value={isbn} onChange={e => setIsbn(e.target.value)} />
-        </label>
-        <label>
-          Publication:
-          <input type="text"  value={publication} onChange={e => setPublication(e.target.value)} />
-        </label>
-        <label>
-          Published Date:
-          <input type="text"  value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
-        </label>
-        <label>
-          Description:
-          <input type="text" style={{ "width": "10em", "height": "10em" }}  value= {description} onChange={e => setDescription(e.target.value)} />
-        </label>
-        <label>
-          Library Book:
-          <input type="checkbox" checked={bookItem.isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
-        </label>
-        <label>
-          Availability:
-          <input type="checkbox" checked={bookItem.isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
-        </label>
-        <label>
-          Thumbnail:
-          <input type="file" accept="image/*" onChange={handleThumbnailChange} />
-        </label>
-        <button type="submit" >Update Book</button>
-      </form> */}
-      {/* {error && <p>{error}</p>} */}
       {showUpdatedBook && 
         <div>
           <h3>book Details</h3>
@@ -214,7 +165,7 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
           <p>title: {title}</p>
           <p>author name: {authorName}</p>
           <p>description: {description}</p>
-          <p>availability: {isAvailable ? 'Yes' : 'No'}</p>
+          <p>availability: {available ? 'Yes' : 'No'}</p>
       </div>
       }
         

@@ -15,12 +15,18 @@ function ManualInputAddBookForm () {
   const [publishedDate, setPublishedDate] = useState('');
   const [isAvailable, setIsAvailable] = useState(false);
   const [isLibraryBook, setIsLibraryBook] = useState(false);
+  const [status, setStatus] = useState('');
   const [amount, setAmount] = useState('FREE');
   const [thumbnail,setThumbnail] = useState(bookImg);
   const [bookCount, setBookCount] = useState(0);
+  const [returnDate, setReturnDate] = useState(new Date().toISOString().slice(0, 10));
+  const [issueDate, setIssueDate] = useState(new Date().toISOString().slice(0, 10));
+  const [expectedReturnDate, setExpectedReturnDate] = useState(new Date().toISOString().slice(0, 10));
+  const [issuedTo, setIssueTo] = useState('');
   const [totalBookCount, setTotalBookCount] = useState(0);
   const [book, setBook] = useState(null);
   const [error, setError] = useState(null);
+
 
     const handleSubmit = (e) => {
         setBookCount(bookCount + 1);
@@ -36,9 +42,14 @@ function ManualInputAddBookForm () {
           publishedDate: publishedDate,
           isbn: isbn,
           available: isAvailable,
+          issueDate: issueDate,
+          expectedReturnDate: expectedReturnDate,
+          returnDate: returnDate,
+          issuedTo: issuedTo,
           libraryBook: isLibraryBook,
           amount: "FREE",
           bookCount: bookCount,
+          status: status,
           thumbnail: bookImg
         })
         .then(response => {
@@ -93,8 +104,8 @@ function ManualInputAddBookForm () {
               </label>
               <label>
                 Published Date:
-                <input type="text" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
-                <span style={{"fontStyle":"italic", "color":"gray", "fontSize":"0.9rem" }}>In yyyy/mm/dd format</span>
+                <input type="text" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} pattern="\d{4}-\d{2}-\d{2}" required />
+                <span style={{"fontStyle":"italic", "color":"gray", "fontSize":"0.9rem" }}>In yyyy-mm-dd format</span>
               </label>
               <div className="manual-input-checkbox-platform" style={{"display":"flex" , "flexDirection":"row",  "marginLeft":"10rem"}}>
                     <div className="manual-input-checkbox-content">

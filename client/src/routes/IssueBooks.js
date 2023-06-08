@@ -1,236 +1,257 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import "react-datepicker/dist/react-datepicker.css";
 import Navbar from '../components/Navbar';
+import axios from 'axios';
 import { useEffect } from 'react';
-import './GetUserStyles.css';
-import UpdateUser from './UpdateUser';
+import IssueBooksModal from './IssueBooksModal';
+import './IssueBooksStyles.css';
+
 
 function IssueBooks() {
-  const [userId, setUserId] = useState('');
-  const [user, setUser] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showEditUserModal, setShowEditUserModal] = useState(false);
-  const [showDeleteUserMessage, setShowDeleteUserMessage] = useState(false);
-  const [showAddUserModal, setShowAddUserModal] = useState(false);
-  const [books, setBooks] = useState([]);
-  
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [admin, setAdmin] = useState(false);
-  
 
-  const handleClose = (event) => {
-    // Check if the click is on the close button or outside the inner-box div
-    if (
-      event.target.className === 'overlay' ||
-      event.target.className === 'close'  
-      // event.target.className === 'add-button-final'  ||
-      // event.target.className === 'edit-button-final'
-    ) {
-      setShowAddUserModal(false);
-      setShowEditUserModal(false);
-    }
-  };
+    const [showIssueBookModal, setShowIssueBookModal] = useState(false);
+    const [issuedBookData, setIssuedBookData] = useState([]);
+    const [issuedBookForTable, setIssuedBookForTable] = useState([]);
+    const [userName, setUserName] = useState([]);
+    const [borrowerUsers, setBorrowerUsers] = useState([]);
+    const [borrowerStatus, setBorrowerStatus] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [error, setError] = useState('');
+    const [editedStatus, setEditedStatus] = useState('');
+    const [editingBookId, setEditingBookId] = useState('');
+    const [showStatusOptions, setShowStatusOptions] = useState(false);
+    const [filteredIssuedBooks, setFilteredIssuedBooks] = useState(issuedBookData);
 
 
-  const handleSearch = () => {
-    const filteredUsers = users.filter(
-      (user) =>
-        user.userId.includes(searchTerm) ||
-        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setUsers(filteredUsers);
-  };
-  
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // Fetch book data
-    axios.get('http://localhost:8080/api/books/issued')
-      .then(response => {
-        const bookData = response.data;
-        // Fetch user data
-        axios.get('http://localhost:8080/api/users/borrowers')
-          .then(response => {
-            const userData = response.data;
-            // Combine book and user data
-            const combinedData = combineData(bookData, userData);
-            setData(combinedData);
-          })
-          .catch(error => {
-            console.error('Error fetching user data:', error);
-          });
-      })
-      .catch(error => {
-        console.error('Error fetching book data:', error);
-      });
-  }, []);
 
-  const combineData = (bookData, userData) => {
-    // Combine book and user data based on matching book ID within the borrowedBooks list
-    const combinedData = userData.map(user => {
-      const borrowedBooks = user.borrowedBooks.map(bookId => {
-        const book = bookData.find(book => book.bookId === bookId);
-        return book ? book : null;
-      });
-      return {
-        ...user,
-        borrowedBooks,
+    useEffect(() => {
+        handleGetAllIssuedBooks();
+      }, []);
+    
+      const fetchData = async () => {
+        try {
+          await Promise.all([handleGetAllIssuedBooks(), handleBorrowerUsers()]);
+          setUserNameFromDatabase();
+          console.log({issuedBookForTable});
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          setError('Error fetching data. Please try again.');
+        }
       };
-    });
-    return combinedData;
-  };
-  
-  // Usage:
-  const combinedData = combineData(bookData, userData);
-  
+    
+      const handleGetAllIssuedBooks = async () => {
+        try {
+          const response = await axios.get('http://localhost:8080/api/book/issued');
+          const bookData = response.data;
+          setIssuedBookData(bookData);
+          console.log({issuedBookData});
+        } catch (error) {
+          console.error('Error fetching book data:', error);
+          throw error;
+        }
+      };
+    
+      const handleBorrowerUsers = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/user/borrower/${borrowerStatus}`);
+          const userData = response.data;
+          setBorrowerUsers(userData);
+          console.log({borrowerUsers});
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          throw error;
+        }
+      };
+    
+      const setUserNameFromDatabase = () => {
+        handleGetAllIssuedBooks();
+        handleBorrowerUsers();
+        const updatedBooks = issuedBookData.map((book) => {
+          const matchingUser = borrowerUsers.find((user) => user.userId === book.issuedTo);
+          if (matchingUser) {
+            const updatedUserName = `${matchingUser.firstName} ${matchingUser.lastName}`;
+            return { ...book, userName: updatedUserName };
+          }
+          return book;
+        });
+        setIssuedBookForTable(updatedBooks);
+      };
 
-  
-  return (
-    <>
-      <Navbar />
-    <div className='container'>
-      <div className="search-add-container">
-        <div className="search-bar-container">
+      const handleDelete = (bookId) => {
+        // Fetch the existing book data
+        axios.get(`http://localhost:8080/api/book/bookId/${bookId}`)
+        .then(response => {
+        const bookResponseData = response.data;
+        bookResponseData.status = 'returned';
+        bookResponseData.available = true;
+        bookResponseData.issuedTo = '';
+        bookResponseData.issueDate = '';
+        bookResponseData.expectedReturnDate = '';
+
+
+        // Update the book data with the modified fields
+        axios.put(`http://localhost:8080/api/book/${bookId}`, bookResponseData)
+            .then(response => {
+            console.log(response.data);
+            // Remove the deleted book from the issuedBookData state
+            const updatedBookData = issuedBookData.filter(book => book.bookId !== bookId);
+            setIssuedBookData(updatedBookData);
+            })
+            .catch(error => console.error(error));
+        })
+        .catch(error => console.error(error));      
+    };
+
+    const handleSave = (bookId) => {
+        // Fetch the existing book data
+    if(editedStatus!='issued') {
+        axios.get(`http://localhost:8080/api/book/bookId/${bookId}`)
+        .then(response => {
+        const bookResponseData = response.data;
+        bookResponseData.status = editedStatus;
+        if(editedStatus==='returned') {
+            bookResponseData.available = true;
+            bookResponseData.issuedTo = '';
+            bookResponseData.issueDate = '';
+            bookResponseData.expectedReturnDate = '';
+            bookResponseData.status = 'returned';
+        // } if(editedStatus==='issued') {
+        //     bookResponseData.available = false;
+        //     bookResponseData.status = 'issued';
+        } if(editedStatus==='missing'){
+            bookResponseData.available = false;
+            bookResponseData.status = 'missing';
+        }
+
+        // Update the book data with the modified fields
+       
+            axios.put(`http://localhost:8080/api/book/${bookId}`, bookResponseData)
+                .then(response => {
+                console.log(response.data);
+                // Remove the deleted book from the issuedBookData state if status is changed from issued
+                const updatedBookData = issuedBookData.filter(book => book.bookId !== bookId);
+                setIssuedBookData(updatedBookData);
+                })
+                .catch(error => console.error(error));
+            
+            })
+            .catch(error => console.error(error));
+            
+            setEditedStatus('');
+        }
+    
+    };
+    
+    // Update the edited status for a book
+  const updateEditedStatus = (bookId, newStatus) => {
+    const updatedBookData = issuedBookData.map((book) => {
+      if (book.bookId === bookId) {
+        return { ...book, editedStatus: newStatus };
+      }
+      return book;
+    });
+    setIssuedBookData(updatedBookData);
+  };
+
+  // Toggle the status options visibility for a book
+  const toggleStatusOptions = (bookId) => {
+    const updatedBookData = issuedBookData.map((book) => {
+      if (book.bookId === bookId) {
+        return { ...book, showStatusOptions: !book.showStatusOptions };
+      }
+      return book;
+    });
+    setIssuedBookData(updatedBookData);
+  };
+
+    
+
+    return(
+        <>
+      <Navbar/>
+      <div className='get-book-container'>
+      <div className="search-add-book-container">
+        {/* <div className="search-bar-container">
           <input
             type="text"
-            placeholder="Search by book or user..."
+            placeholder="Search by ID or bookname..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-        <div className="add-user-button-container">
-          <button className="add-user-button" onClick={() => {setShowEditUserModal(false); setShowAddUserModal(true);}}>
+          <button type='submit' className="add-book-button-container">Search</button>
+        </div> */}
+        <div className="add-book-button-container">
+          <button className="add-book-button" onClick={() => {setShowIssueBookModal(true);}}>
             Issue Book
           </button>
         </div>
       </div>
         {error && <p className="error">{error}</p>}
       <div className='table-container'>
+     
         <table>
           <thead>
             <tr>
-              <th>Serial no.</th>
-              <th>Book Title</th>
+              <th>Book</th>
               <th>Book ID</th>
-              <th>User</th>
+              <th>User ID</th>
               <th>Issue Date</th>
-              <th>Expected Return</th>
+              <th>Expected Return Date</th>
               <th>Return Date</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th>Action Buttons</th>
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
+            {issuedBookData.map((book) => (
               <tr key={book.bookId}>
-                <td>{book.bookId}</td>
                 <td>{book.title}</td>
                 <td>{book.bookId}</td>
-                <td>{book.email}</td>
-                <td>{book.password}</td>
-                <td>{book.admin ? 'Yes' : 'No'}</td>
-                <td className='action-buttons'>
-                  <button className='edit-button' onClick={() => handleEditButtonClick()}>Edit</button>
-                  <button className='delete-button' onClick={() => handleDeleteButtonClick(user.userId)}>Delete</button>
+                <td>{book.issuedTo}</td>
+                <td>{new Date(book.issueDate).toLocaleDateString()}    {new Date(book.issueDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </td>
+                <td>{new Date(book.expectedReturnDate).toLocaleDateString()}    {new Date(book.expectedReturnDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </td>
+                <td>{new Date(book.returnDate).toLocaleDateString()}     {new Date(book.returnDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </td>
+                <td>
+                    {book.showStatusOptions ? (
+
+                        <select value={editedStatus} onChange={(e) => {setEditedStatus(e.target.value)}}>
+                            <option value="issued" >issued</option>
+                            <option value="returned">returned</option>
+                            <option value="missing">missing</option>
+                        </select>  
+                    ) : (
+                        book.status
+                     ) }
+                            
+                </td>          
+                <td >
+                {!book.showStatusOptions ? (
+                    <button className='edit-button' onClick={() => toggleStatusOptions(book.bookId)}>Edit</button>
+                ) : ( 
+                     <button className='edit-button' onClick={() => {toggleStatusOptions(book.bookId); handleSave(book.bookId);} }>Save</button>
+
+                )} 
+                  
+                  <button className='delete-button' onClick={() => handleDelete(book.bookId)}>Cancel</button>
+                  {book.available === true && (
+                    <button className="delete-button" onClick={() => handleDelete(book.bookId)}>Delete</button>
+                 )}                
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+     
       </div>
-        {showEditUserModal && (
-        <div className="overlay" onClick={handleClose}>
-         <div className="overlay-inner">
-          <button className="close" onClick={handleClose}><i className="fas fa-times"></i></button>
-          <div className="inner-box">   
-          
-            <h2>Update User</h2>
-            <form className='update-book-form' onSubmit={handleUpdateUser}>
-              <label>
-                User ID:
-                <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
-              </label>
-              <label>
-                First Name:
-                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-              </label>
-              <label>
-                Last Name:
-                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-              </label>
-              <label>
-                Email:
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              </label>
-              <label>
-                Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </label>
-              <label>
-                Admin:
-                <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
-              </label>
-              <button className ='edit-button-final' type="submit">Update User</button>
-            </form>
-          </div>
-          </div>
-          </div>
-        )}
-        
-        {showDeleteUserMessage && (
-          <div>
-            <p>User deleted successfully</p>
-          </div>
-        )}
-
-        {showAddUserModal && (
-          <div className="overlay" onClick={handleClose}>
-          <div className="overlay-inner">
-           <button className="close" onClick={handleClose}><i className="fas fa-times"></i></button>
-           <div className="inner-box">   
-            <h2>Add User</h2>
-            <form className='add-user-form' onSubmit={handleAddUser}>
-              <label>
-                User Id:
-                <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
-              </label>
-              <label>
-                First Name:
-                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-              </label>
-              <label>
-                Last Name:
-                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-              </label>
-              <label>
-                Email:
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              </label>
-              <label>
-                Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </label>
-              <label>
-                Admin:
-                <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
-              </label>
-              <button className ='add-button-final' type="submit">Add User</button>
-            </form>
-          </div>
-        </div>
-        </div>
-        )}
-      
-      </div>
-    </>
-  );
-};
-
+    </div>
+    {showIssueBookModal && (
+        <IssueBooksModal showIssueBookModal={showIssueBookModal} setShowIssueBookModal={setShowIssueBookModal}/>
+    )}
+     </>
+    );
+}
 export default IssueBooks;

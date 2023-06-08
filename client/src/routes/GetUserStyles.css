@@ -71,6 +71,7 @@ userTable.css
   .edit-button {
     margin-top: 1rem;
     margin-bottom: 2rem;
+    margin-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 1rem;
@@ -83,12 +84,12 @@ userTable.css
     border-radius: 4px;
   }
 
-  .action-button {
+  /* .action-button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 5rem;
-  }
+
+  } */
   .delete-button {
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -117,7 +118,7 @@ userTable.css
   thead th {
     background-color: #f2f2f2;
     padding: 0.5em;
-    text-align: left;
+    text-align: center;
     font-weight: bold;
   }
   

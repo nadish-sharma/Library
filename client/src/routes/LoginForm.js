@@ -1,64 +1,127 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
+import "./LoginFormStyles.css";
+import logoImg from '../images/logo-img.png';
 
+ 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(true);
+  const [showAdminDashboard, setShowAdminDashboard] = useState(false);
+  const [showUserDashboard, setShowUserDashboard] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(true);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/user/login', {
-        email,
-        password,
-      });
-
-      // If the login was successful, redirect the user to the home page
-      if (response.status === 200) {
-        window.location.href = '/';
-      }
+      // Send the signup request to the backend API
+      const response = await axios.get(`http://localhost:8080/api/user/isAdmin/${isAdmin}`);
+      const users = response.data;
+      const matchedUser = users.filter(user => user.email === email && user.password === password);
+        if(isAdmin) {  
+          if(matchedUser.length > 0) {
+            setShowAdminDashboard(true);
+            console.log({showAdminDashboard});
+          }
+          else{
+            setLoginStatus(false);
+            setEmail('');
+            setPassword('');
+            setIsAdmin(false);
+          }
+        } else{
+          if(matchedUser.length > 0) {
+            setShowUserDashboard(true);
+            console.log({showUserDashboard});
+          }else {
+            setLoginStatus(false);
+            setEmail('');
+            setPassword('');
+            setIsAdmin(false);
+          }
+        }
+      console.log(response.data); // Handle successful signup
     } catch (error) {
-      console.error(error);
+      console.error(error); // Handle signup error
     }
   };
 
   return (
     <>
-      <Navbar />
-      <div style={{ marginTop: '12em' }}>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
+    {!showAdminDashboard && !showUserDashboard &&
+    (
+    <>
+    <div className='login-page'>
+      <img className='login-page-logo' src={logoImg} alt='LibStack'/>
+    <div className="login-platform">
+        <div className='login-contents'>
+          <div className='admin-login'>Admin Login</div>
+          <form className='login-form'onSubmit={handleSignup}>
+            <div>
+              <input  type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div>
+              <input
+               
+                type="password"
+                placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required />
+            </div>
+            <div>
+              {/* <label className='admin'>
+                Admin:
+                <input
+                  type="checkbox"
+                  checked={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.checked)} />
+              </label> */}
+            </div>
+            <button type="submit">Sign In</button>
+          </form>
+          <div className='admin-details'>
+            <h5>Sample Admin Login Details</h5>
+            <p>email: admin@gmail.com</p>
+            <p>password: admin</p>
+        </div>
       </div>
+      </div>
+      {/* <div className='admin-details'>
+        <div>
+            <h4>Sample Admin Login Details</h4>
+            <p>email: admin@gmail.com</p>
+            <p>password: admin</p>
+        </div> */}
+        {/* <div>
+            <h4>Sample User Login Details</h4>
+            <p>email: vegeta@gmail.com</p>
+            <p>password: vegeta</p>
+        </div> */}
+      {/* </div> */}
+      </div>
+        </>
+    ) }
+
+    {!loginStatus && (
+      <h1>Login Failed</h1>
+    )}
+    {(showAdminDashboard || showUserDashboard) && 
+    (<Navbar 
+            setShowAdminDashboard={setShowAdminDashboard}
+            showAdminDashboard={showAdminDashboard}
+            setShowUserDashboard={setShowUserDashboard}
+            showUserDashboard={showUserDashboard}
+            setIsAdmin={setIsAdmin}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            />
+    )}
     </>
   );
 }
