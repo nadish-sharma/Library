@@ -290,8 +290,8 @@ function GetUser() {
           <div className="overlay-inner">
            <button className="close" onClick={handleClose}><i className="fas fa-times"></i></button>
            <div className="inner-box">   
-            <h2>Add User</h2>
-            <form className='add-user-form' onSubmit={handleAddUser}>
+            <h2 className='add-user-heading' style={{marginTop:'-2rem'}}>Add User</h2>
+            <form className='add-user-form' style={{marginTop:'-1rem'}} onSubmit={handleAddUser}>
               <label>
                 User Id:
                 <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
@@ -316,7 +316,10 @@ function GetUser() {
                 Admin:
                 <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} />
               </label>
-              <button className ='add-button-final' type="submit">Add User</button>
+              <button 
+                className ='add-button-final' 
+                type="submit"
+                style={{marginLeft:'16rem', marginBottom:'2rem', marginTop:'1rem'}}>Add User</button>
             </form>
           </div>
         </div>

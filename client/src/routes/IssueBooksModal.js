@@ -3,6 +3,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 import IssueBooks from './IssueBooks';
+import './IssueBookModalStyles.css';
 
 
 function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
@@ -90,6 +91,7 @@ function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
         // console.log({bookResponseData});
         bookResponseData.issueDate = issueDate;
         bookResponseData.expectedReturnDate = expectedReturnDate;
+        bookResponseData.returnDate = null;
         bookResponseData.issuedTo = selectedUser;
         bookResponseData.status = 'issued';
         bookResponseData.available = false;
@@ -108,7 +110,7 @@ function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
  return (
   <>
    {showIssueBookModal && (
-        <div className="overlay" >
+        <div className="overlay-issue-book-modal" >
           <div className="overlay-inner">
             <button className="close" onClick={handleCloseIssueBook}>
               <i className="fas fa-times"></i>
@@ -129,7 +131,7 @@ function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
               </label>
 
               <label className='jf'>
-                Available Books:
+                <span>Available Books:</span>
                 <select value={selectedBook} onChange={handleBookChange} required>
                   <option value="">Select Book</option>
                   {Object.values(bookData).map((book) => (
@@ -141,7 +143,7 @@ function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
               </label>
 
                 <label className='jf'>
-                  Issue Date:
+                 <span>Issue Date</span>
                   <input
                     type="datetime-local"
                     value={issueDate}
@@ -151,7 +153,7 @@ function IssueBooksModal({showIssueBookModal, setShowIssueBookModal}) {
                   />
                 </label>
                 <label className='jf'>
-                  Expected Return Date:
+                  <span>Expected Return Date:</span>
                   <input
                     type="datetime-local"
                     value={expectedReturnDate}

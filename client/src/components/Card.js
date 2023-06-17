@@ -20,8 +20,11 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
   const handleEditModal = () => {
     setShowEditModal(true);
     setShow(false);
-    console.log({show});
   }
+  const handleEditButtonClick = (e) => {
+    e.preventDefault();
+    handleEditModal();
+  };
 
   const handleHover = () => {
     setIsHovered(true);
@@ -147,17 +150,18 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
             
             <div  key={book.id} 
                   className="card" 
-                  onClick={() => { setShow(true); setItem(book); }}
                   onMouseEnter={handleHover}
+                  onClick={() => { setShow(true); setItem(book); }}
                   onMouseLeave={handleMouseLeave}
             >
                {isHovered && 
               
-              <i className="fa-solid fa-pen"   
-                 onClick={() => handleEditModal()}>
+              <i className="fa-solid fa-pen"  
+                 onClick={() => {
+                  handleEditModal()}}>
               </i>
             }
-              
+            
               <img src={book.thumbnail} alt="" />
               <div className="bottom">
                 <h5 className="title">{book.title}</h5>
@@ -170,7 +174,9 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
                   </p>
                 {/* )} */}
               </div>
+             
             </div>
+           
           ))}
           {console.log({bookItem})}
           {showEditModal && 
@@ -180,7 +186,7 @@ function Card({ bookData, bookDataGoogle, bookDataLibrary, logoClickedStatus, se
           showEditModal={showEditModal}
           setShowEditModal={setShowEditModal}
           />}
-          {show && (
+          {show && !showEditModal &&(
           <BookDescriptionModal
             bookData={bookData} libraryBook={libraryBook}
             show={show} book={bookItem}

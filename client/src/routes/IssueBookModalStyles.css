@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Poppins:wght@300&display=swap');
+.overlay-issue-book-modal{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
+}
+.overlay-issue-book-modal .overlay-inner{
+    background: white;
+    border-radius: 0.5rem;
+    width: 25em;
+
+    /* max-height: fit-content; */
+    margin-top: 3.8rem;
+    height: 28em;
+    padding: 1.5rem;
+    position: fixed;
+    overflow: auto;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+.overlay-issue-book-modal .overlay-inner .close{
+    position: absolute;
+    top:1rem;
+    right: 1rem;
+    outline: none;
+    border: none;
+    font-size: 1.2rem;
+    background-color: transparent;
+    
+}
+.overlay-issue-book-modal .overlay-inner .inner-box{
+    margin-top: 2rem;
+    flex-direction: column;
+}
+.overlay-issue-book-modal .inner-box h2{
+    margin-bottom: 1.5rem;
+}
+.overlay-issue-book-modal form label{
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.overlay-issue-book-modal form select{
+    position: relative;
+   width: 20rem;
+   border-color : #222;
+   border: none;
+   background-color: transparent;
+   outline: 0;
+   height: 2rem;
+   border-radius: 5px;
+   margin-right: 10rem;
+   border-width: 1px;
+   box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+
+}
+.overlay-issue-book-modal form input{
+    position: relative;
+    width: 17rem;
+    border: none;
+    background-color: transparent;
+    outline: 0;
+    height: 2rem;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+
+}
+
+
+
+.overlay-issue-book-modal .overlay-inner .inner-box .info button{
+    margin-top: 1rem;
+    background-color:rgb(46, 169, 169);
+    color:#fff;
+    font-size: 1em;
+    font-weight : 600;
+    white-space: nowrap;
+    border-radius: 4px;
+    left:auto;
+    padding : 0.5rem 1.2em;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor : pointer;
+}
+
+.overlay-issue-book-modal form .button-container {
+    margin-left: 7.5rem;
+}
+
+.overlay-issue-book-modal form .button-container button {
+    background-color:rgb(46, 169, 169);
+    margin-right: 2rem;
+    color:#fff;
+    font-size: 1em;
+    font-weight : 600;
+    white-space: nowrap;
+    border-radius: 4px;
+    left:auto;
+    padding : 0.5rem 1.2em;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor : pointer;
+}
+
+form .button-container button:hover {
+    background-color: #01959a;
+}
+
+
+

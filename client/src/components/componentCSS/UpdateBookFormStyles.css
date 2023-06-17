@@ -4,9 +4,12 @@
   margin-bottom: -5rem;
 }
 .update-book-form label {
-  margin-top: 1em;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
+}
+.update-book-form label span{
+  margin-left: -10rem;
 }
 
 .update-book-form input {
@@ -14,7 +17,8 @@
   text-align: start;
   outline: 0;
   border: none;
-  height: 2.5em;
+  height: 2em;
+  width: 35rem;
   border-radius: 5px;
   margin-right: 10rem;
   border-width: 1px;
@@ -22,17 +26,18 @@
 }
 
 .update-book-form textarea {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  text-indent: 0.5rem;
-  text-align: start;
-  outline: 0;
-  border: none;
-  height: 2.5em;
-  border-radius: 5px;
-  margin-right: 10rem;
-  border-width: 1px;
-  box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-indent: 0.5rem;
+    text-align: start;
+    outline: 0;
+    border: none;
+    height: 2.5em;
+    border-radius: 5px;
+    margin-right: 10rem;
+    border-width: 1px;
+    box-shadow: 0 0.2rem 0.4rem rgba(31, 31, 31, 0.25);
+  
 }
 
 .update-book-form textarea:hover {
@@ -127,9 +132,8 @@
   background: white;
   border-radius: 0.5rem;
   width: 40em;
-  /* max-height: fit-content; */
   margin-top: 3.8rem;
-  height: 35em;
+  height: 30em;
   padding: 1.5rem;
   position: fixed;
   overflow: auto;
@@ -219,15 +223,19 @@
 }
 .overlay-edit-book .overlay-inner .inner-box .info button{
   margin-top: 1rem;
+  margin-bottom: 2rem;
   background-color:rgb(46, 169, 169);
   color:#fff;
-  font-size: 1em;
+  font-size: 1.2rem;
   font-weight : 600;
   white-space: nowrap;
   border-radius: 4px;
   left:auto;
   padding : 0.5rem 1.2em;
   transition: all 0.2s ease-in-out;
+  width: 10rem;
+  height: 3rem;
+  margin-left: 13rem;
   border: none;
   cursor : pointer;
 }

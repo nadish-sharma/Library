@@ -67,7 +67,7 @@ function AddUser(props) {
           Password:
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
-        <label>
+        <label className='admin-button-add-user'>
           Admin:
           <input type="checkbox" checked={admin} onChange={e => setadmin(e.target.checked)} />
         </label>

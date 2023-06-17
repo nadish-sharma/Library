@@ -98,58 +98,57 @@ function UpdateBookForm({bookItem,ID, showEditModal,setShowEditModal}) {
           <div className="inner-box">
             <img src={thumbnail} alt="" />
             <div className="info">
-            <h1>Edit book with ID: `{ID}`</h1>
-            <h2>Update book</h2>
+            <h1>Edit book</h1>
       <form className='update-book-form' onSubmit={e => { e.preventDefault(); handleUpdateBook(); }}>
         <label>
-          Book Id:
+          <span>Book Id:</span>
           <input type="text"  value={bookId} onChange={e => setBookId(e.target.value)} />
         </label>
         <label>
-          Title:
+          <span>Title:</span>
           <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
         </label>
         <label>
-          Author Name:
+          <span>Author Name:</span>
           <input type="text"  value={authorName} onChange={e => setAuthorName(e.target.value)} />
         </label>
         <label>
-          ISBN:
+          <span>ISBN:</span>
           <input type="text"  value={isbn} onChange={e => setIsbn(e.target.value)} />
         </label>
         <label>
-          Publication:
+          <span>Publication:</span>
           <input type="text"  value={publication} onChange={e => setPublication(e.target.value)} />
         </label>
         <label>
-          Published Date:
+          <span>Published Date:</span>
           <input type="text"  value={publishedDate} onChange={e => setPublishedDate(e.target.value)} />
         </label>
         <label>
-          Description:
-          <input type="text" style={{ "width": "10em", "height": "10em" }}  value= {description} onChange={e => setDescription(e.target.value)} />
+          <span>Description:</span>
+          <textarea type="text" style={{ "height": "10rem" }}  value= {description} onChange={e => setDescription(e.target.value)} />
         </label>
         <label>
-          Price:
+          <span>Price:</span>
           <input type="text"  value={amount} onChange={e => setAmount(e.target.value)} />
         </label>
         <label>
-          Currency:
+          <span>Currency:</span>
           <input type="text"  value={currency} onChange={e => setCurrency(e.target.value)} />
         </label>
         <label>
-          Library Book:
+          <span>Library Book:</span>
           <input type="checkbox" checked={bookItem.isLibraryBook} onChange={e => setIsLibraryBook(e.target.checked)} />
         </label>
         <label>
-          Availability:
+          <span>Availability:</span>
           <input type="checkbox" checked={bookItem.available} onChange={e => setAvailable(e.target.checked)} />
         </label>
         {/* <label>
           Thumbnail:
           <input type="file" accept="image/*" onChange={handleThumbnailChange} />
         </label> */}
-        <button type="submit" >Update Book</button>
+        <button type="submit">Update Book</button>
       </form>
             </div>
           </div>

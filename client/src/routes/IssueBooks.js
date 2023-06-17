@@ -105,11 +105,18 @@ function IssueBooks() {
 
     const handleSave = (bookId) => {
         // Fetch the existing book data
-    if(editedStatus!='issued') {
+    // if(editedStatus!='issued') {
         axios.get(`http://localhost:8080/api/book/bookId/${bookId}`)
         .then(response => {
         const bookResponseData = response.data;
         bookResponseData.status = editedStatus;
+        if(editedStatus==='issued') {
+          bookResponseData.available = false;
+            bookResponseData.issuedTo = bookResponseData.issueto;
+            bookResponseData.issueDate = bookResponseData.issueDate;
+            bookResponseData.expectedReturnDate = bookResponseData.expectedReturnDate;
+            bookResponseData.status = bookResponseData.status;
+        }
         if(editedStatus==='returned') {
             bookResponseData.available = true;
             bookResponseData.issuedTo = '';
@@ -137,9 +144,9 @@ function IssueBooks() {
             
             })
             .catch(error => console.error(error));
-            
+          // }
             setEditedStatus('');
-        }
+        
     
     };
     
@@ -147,7 +154,7 @@ function IssueBooks() {
   const updateEditedStatus = (bookId, newStatus) => {
     const updatedBookData = issuedBookData.map((book) => {
       if (book.bookId === bookId) {
-        return { ...book, editedStatus: newStatus };
+        return { ...book, status: newStatus };
       }
       return book;
     });
@@ -198,7 +205,7 @@ function IssueBooks() {
               <th>User ID</th>
               <th>Issue Date</th>
               <th>Expected Return Date</th>
-              <th>Return Date</th>
+              {/* <th>Return Date</th> */}
               <th>Status</th>
               <th>Action Buttons</th>
             </tr>
@@ -213,8 +220,8 @@ function IssueBooks() {
                 </td>
                 <td>{new Date(book.expectedReturnDate).toLocaleDateString()}    {new Date(book.expectedReturnDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </td>
-                <td>{new Date(book.returnDate).toLocaleDateString()}     {new Date(book.returnDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </td>
+                {/* <td>{new Date(book.returnDate).toLocaleDateString()}     {new Date(book.returnDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} */}
+                {/* </td> */}
                 <td>
                     {book.showStatusOptions ? (
 
@@ -232,11 +239,11 @@ function IssueBooks() {
                 {!book.showStatusOptions ? (
                     <button className='edit-button' onClick={() => toggleStatusOptions(book.bookId)}>Edit</button>
                 ) : ( 
-                     <button className='edit-button' onClick={() => {toggleStatusOptions(book.bookId); handleSave(book.bookId);} }>Save</button>
+                     <button className='edit-button' onClick={() => {toggleStatusOptions(book.bookId); setShowStatusOptions(false); handleSave(book.bookId);} }>Save</button>
 
                 )} 
                   
-                  <button className='delete-button' onClick={() => handleDelete(book.bookId)}>Cancel</button>
+                  <button className='delete-button' onClick={() => handleDelete(book.bookId)}>Delete</button>
                   {book.available === true && (
                     <button className="delete-button" onClick={() => handleDelete(book.bookId)}>Delete</button>
                  )}                

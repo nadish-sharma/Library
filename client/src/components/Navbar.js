@@ -393,7 +393,7 @@ function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboa
     return (
      
         <>
-        {showAdminDashboard && (
+        {/* {showAdminDashboard && ( */}
 
         
         <div className="master">   
@@ -455,13 +455,13 @@ function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboa
                
                   <Link to="/">
                     <button className="navbar-links-mobile" 
-                      onClick={()=>
-                        {setShowAdminDashboard(false); 
-                        setShowUserDashboard(false)
-                        setIsAdmin(false);
-                        setEmail('');
-                        setPassword('');
-                        }}
+                      // onClick={()=>
+                      //   {setShowAdminDashboard(false); 
+                      //   setShowUserDashboard(false);
+                      //   setIsAdmin(false);
+                      //   setEmail('');
+                      //   setPassword('');
+                      //   }}
                     > Sign Out</button>
                   </Link>
 
@@ -492,7 +492,7 @@ function Navbar ({ setShowAdminDashboard, showAdminDashboard, setShowUserDashboa
              
             
         </div> 
-        )}
+        {/* )} */}
     </>
 
     );
